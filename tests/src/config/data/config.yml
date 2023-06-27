@@ -1,0 +1,31 @@
+is_training_run: false
+
+source:
+  storage_type: database #or, file 
+  X: analysis.draftees
+  Y: analysis.mlb_players_seasons_war #or, mlb_players_latest_season_war
+
+filters:
+  title: draftees_2018
+  time_field: year_season1
+  time_min: 2018
+  time_max: 2018
+
+filters_train:
+  title: draftees_2013_thru_2017_train
+  time_field: year_season1
+  time_min: 2013
+  time_max: 2017
+
+outcome_definition:
+  title: war_annualized_geq1_within_3_years_since_draft
+  do_drop_na: false
+  fillna_value: 0
+
+dataset_attributes:
+  - year
+  - name
+  - years_old
+  - overall_pick
+  - team_short
+  - sending_source
