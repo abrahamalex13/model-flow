@@ -1,0 +1,37 @@
+title: complete_wide
+
+transforms_default_args:
+
+  standard_scale:
+
+  consolidate_rare_levels:
+    thresh_nobs: 10
+    overwrite_with: OTHER
+
+  target_encode_beta_binomial:
+    n_cv_splits: 3
+    target_prior_distribution:
+      alpha: 1
+      beta: 24
+
+  onehot_encode:
+
+features:
+
+  overall_pick:
+    dtype: numeric
+    transforms:
+      standard_scale:
+
+  team:
+    dtype: categorical
+
+    transforms:
+      consolidate_rare_levels:
+
+      onehot_encode:
+        categories:
+          - BOS
+          - PIT
+          
+      target_encode_beta_binomial:
