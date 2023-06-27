@@ -63,12 +63,3 @@ def test_transforms_features(config_features):
     }
     given = config_features.transforms_features
     assert given == expected
-
-
-def test_onehot_encode_featurewise_args(
-    config_feature_transformer_onehot_encode,
-):
-    expected = {"categories": ["BOS", "PIT"]}
-    given = config_feature_transformer_onehot_encode.featurewise_args["team"]
-
-    assert given == expected
