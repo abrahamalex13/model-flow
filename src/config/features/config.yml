@@ -1,0 +1,171 @@
+# Descriptive name distinguishes one feature transform pipeline from another.
+title: narrow
+
+
+# Workflow objective: apply *pre-configured* function over arbitrary columns.
+# Preprocessing workflow doesn't generalize across analyses
+# when functions' args are declared 'on-the-fly'. 
+
+# Provide the menu of pre-configured transforms, with default arguments.
+# A transform's argument names come from underlying API.
+# Here we're only declaring what functions are available:
+# to invoke, call by name in later `features` section.
+
+# Suppose one kind of transform targets two different feature sets,
+# with two different argument sets (where args are not feature values) -- 
+# then create two transform entries.
+# Args are feature values for `onehot_encode`: don't need multiple transforms,
+# instead specify feature value args in later `features` section.
+transforms_default_args:
+
+  standard_scale:
+
+  impute_numeric:
+    strategy: median
+    add_indicator: true
+
+  impute_numeric_zero:
+    strategy: constant
+    fill_value: 0
+    add_indicator: false
+
+  impute_numeric_flag:
+    strategy: most_frequent
+    add_indicator: true
+
+  impute_string:
+    strategy: constant
+    fill_value: NULL
+    add_indicator: false
+
+  consolidate_rare_levels:
+    thresh_nobs: 5
+    overwrite_with: OTHER
+
+  target_encode_normal:
+    n_cv_splits: 3
+    target_prior_distribution:
+      mu: .005
+      # how to specify prior variance_mean?
+      # start with observable quantities: Var(Y), and related Var(Ybar).
+      # when Var(Ybar) = Var(Y) / N = var_prior_mu, then 
+      # prior mean receives 50% weight into posterior mean:
+        # weight_{prior_mean} = var_sample_mu / (var_sample_mu + var_prior_mu).
+      # choose N_critical such that, Ybar & prior_mu should weight 50/50.
+      # then, Var(Y) / N_critical = var_prior_mu.
+      variance_mu: 1e-4
+
+  onehot_encode:
+
+
+# Specify each feature's dtype and transform keywords. 
+# Ensure each transform keyword links to a `transforms_default_args` entry.
+# Typical specification: transform keyword with no additional arguments.
+# Exception is `onehot_encode`: likely to have `categories` values.
+features:
+
+  years_old_at_draft:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  overall_pick_at_draft:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  sending_source_at_draft:
+    dtype: categorical
+    transforms:
+      impute_string:
+      consolidate_rare_levels:
+      target_encode_normal:
+
+  team_short_at_draft:
+    dtype: categorical
+    transforms:
+      impute_string:
+      consolidate_rare_levels:
+      target_encode_normal:
+
+  n_prospect_rankings_total:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  prospect_ranking_last:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  prospect_ranking_delta:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  age_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  g_fraction_full_season_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  team1_season1:
+    dtype: categorical
+    transforms:
+      impute_string:
+      consolidate_rare_levels:
+      target_encode_normal:
+
+  war_per_g_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  team_latest_rank_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  team_latest_wins_rate_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+  
+  team_latest_wins_rate_movv3_excl_season1:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  age_season2:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  g_fraction_full_season_season2:
+    dtype: numeric
+    transforms:
+      impute_numeric_zero:
+
+  war_per_g_season2:
+    dtype: numeric
+    transforms:
+      impute_numeric_zero:
+
+  age_season3:
+    dtype: numeric
+    transforms:
+      impute_numeric:
+
+  g_fraction_full_season_season3:
+    dtype: numeric
+    transforms:
+      impute_numeric_zero:
+
+  war_per_g_season3:
+    dtype: numeric
+    transforms:
+      impute_numeric_zero:
