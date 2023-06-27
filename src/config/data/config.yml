@@ -1,0 +1,41 @@
+is_training_run: true
+
+source:
+  storage_type: database
+  X: analysis.players_seasons_features_bat
+  Y: analysis.players_outcomes_war_bat
+
+filters:
+  title: season3_2017
+  time_field: year_season3
+  time_min: 2017
+  time_max: 2017
+
+filters_train:
+  title: season3_2012_thru_2016_train
+  time_field: year_season3
+  time_min: 2012
+  time_max: 2016
+
+outcome_definition: 
+  title: war_per_g_lifetime_asof_season5
+  do_drop_na: false
+  fillna_value: 0
+
+dataset_attributes:
+  - player_id
+  - name
+  - years_old_at_draft
+  - overall_pick_at_draft
+  - sending_source_at_draft
+  - team_short_at_draft
+  - prospect_ranking_last
+  - age_season1
+  - team1_season1
+  - war_per_g_season1
+  - g_fraction_full_season_season1
+  - war_per_g_season2
+  - g_fraction_full_season_season2
+  - war_per_g_season3
+  - g_fraction_full_season_season3
+  
