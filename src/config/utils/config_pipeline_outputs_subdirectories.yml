@@ -1,0 +1,38 @@
+# Specify each pipeline output and its subdirectory levels.
+# A subdirectory level -- step in the hierarchy -- 
+# reflects a configuration detail: data config or features config. 
+# As such, declare config header (config_data, config_features),
+# and list the config elements which constitute subdir levels.
+
+# Note, a test run might specify a test data output dir
+# entirely distinct from dir with _trained pipeline transformers_.
+
+# FILE FORMAT:
+
+# <output>:
+#   <config>: (ex: config_data, config_features)
+#     - subdir_level (<config> element, with `title` attribute)
+#     - subdir_level
+#     - ...
+#   <config>:
+#     - ...
+
+data_processed:
+  subdirectory_levels_by_config:
+
+    config_data:
+      - outcome_definition 
+      - filters_train
+    
+    config_features:
+      - title
+
+pipeline_artifacts:
+  subdirectory_levels_by_config:
+
+    config_data:
+      - outcome_definition
+      - filters_train
+    
+    config_features:
+      - title
