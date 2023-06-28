@@ -14,7 +14,7 @@ class QueryX:
             "WHERE "
             "{time_min} <= {time_field} "
             "AND {time_field} <= {time_max} "
-            "AND NOT is_model_anomaly"
+            "AND is_valid"
         )
 
         self.query = query0.format(
