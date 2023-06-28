@@ -5,7 +5,6 @@ from src.config.ConfigFeatureTransformsPipeline import (
 from src.config.features.TransformArgsAdapter import (
     TransformArgsAdapter,
 )
-from src.config.models.ConfigModel import ConfigModel
 
 DIR = pathlib.Path(__file__).parent
 
