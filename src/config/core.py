@@ -21,5 +21,3 @@ transforms_args_adapters = {
     x: TransformArgsAdapter(config.config_features, x)
     for x in config.transforms
 }
-
-config_model = ConfigModel(DIR / "models/config.yml", config)
