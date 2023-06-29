@@ -28,7 +28,7 @@ y = XY["y"]
 
 if config.is_training_run:
 
-    pipeline = PipelineImputeScrubEnrichBasis(config.transforms_calls)
+    pipeline = PipelineImputeScrubEnrichBasis(config.config_transforms)
     pipeline.fit(X, y=y)
     with open(config.outputs_path["feature_transforms_pipeline"], "wb") as f:
         pickle.dump(pipeline, f)
