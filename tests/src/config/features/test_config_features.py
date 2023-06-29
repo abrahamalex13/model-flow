@@ -37,7 +37,7 @@ def test_features_transforms(config_features):
 
 def test_consolidate_rare_levels_default_args(config_features):
     expected = {"thresh_nobs": 10, "overwrite_with": "OTHER"}
-    given = config_features.transforms_default_args["consolidate_rare_levels"]
+    given = config_features.transformers["consolidate_rare_levels"]
     assert given == expected
 
 
