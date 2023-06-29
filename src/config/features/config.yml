@@ -16,7 +16,7 @@ title: narrow
 # then create two transform entries.
 # Args are feature values for `onehot_encode`: don't need multiple transforms,
 # instead specify feature value args in later `features` section.
-transforms_default_args:
+transformers:
 
   standard_scale:
 
