@@ -65,7 +65,7 @@ def test_transforms_features(config_features):
     assert given == expected
 
 
-def test_transforms_calls(config_features):
+def test_config_transforms(config_features):
 
     expected = {
         'standard_scale': {
@@ -92,6 +92,6 @@ def test_transforms_calls(config_features):
             }
     }
 
-    given = config_features.transforms_calls
+    given = config_features.config_transforms
     
     assert given == expected
