@@ -79,7 +79,7 @@ class ConfigFeatures:
 
     def set_transforms_features(self):
         """
-        Code-friendly flow: proceed by transform, revising each feature set.
+        Modeling workflow proceeds by transform (API), revising each feature set.
         Simply invert features_transforms structure. 
         """
 
