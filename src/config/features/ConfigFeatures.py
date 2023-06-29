@@ -54,7 +54,8 @@ class ConfigFeatures:
     def set_features_transforms(self):
         """
         Analyst-friendly declaration flow: feature, then its transforms.
-        Within that nesting structure, validate transform's args.
+        Within feature, validate each transform's args, because
+        some transformers need feature-wise args not already validated.
         If transform specifies _any_ args, no use of default.
         If transform specifies _no_ args, then inject default.
         """
