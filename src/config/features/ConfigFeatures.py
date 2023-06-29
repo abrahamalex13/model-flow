@@ -88,9 +88,9 @@ class ConfigFeatures:
 
         self.transforms_features = {}
 
-        for feature, transforms_feature in self.features_transforms.items():
+        for feature, transforms in self.features_transforms.items():
 
-            for trfm in transforms_feature:
+            for trfm in transforms:
 
                 if trfm not in self.transforms_features:
                     self.transforms_features[trfm] = []
@@ -107,9 +107,9 @@ class ConfigFeatures:
             self.transforms_calls[trfm] = {}
             self.transforms_calls[trfm]['features'] = features
 
-        for trfm, args in self.transformers.items():
-
-            self.transforms_calls[trfm]['args'] = args
+        for trfm in self.transforms_calls:
+            
+            self.transforms_calls[trfm]['args'] = self.transformers[trfm]
 
             if trfm == "onehot_encode":
                 
