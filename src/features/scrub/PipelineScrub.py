@@ -31,7 +31,7 @@ class PipelineScrub:
 
             self.consolidate_rare_levels_pipeline = (
                 ConsolidateRareLevelsTransformer(
-                    features=cfg_trfm.features, **cfg_trfm.tune_parameters
+                    features=cfg_trfm["features"], **cfg_trfm["args"]
                 )
             )
             self.consolidate_rare_levels_pipeline.fit(X)

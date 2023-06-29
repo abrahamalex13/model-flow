@@ -81,10 +81,10 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 TargetEncodeTransformer(
-                    features=cfg_transform.features,
-                    **cfg_transform.tune_parameters
+                    features=cfg_transform["features"],
+                    **cfg_transform["args"]
                 ),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         elif transform == "onehot_encode":
@@ -92,7 +92,7 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 preprocessing.OneHotEncoder(
-                    categories=cfg_transform.categories,
+                    categories=cfg_transform["categories"],
                     sparse=False,
                     handle_unknown="ignore",
                 ),
@@ -104,7 +104,7 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 preprocessing.StandardScaler(),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         if spec is not None:
