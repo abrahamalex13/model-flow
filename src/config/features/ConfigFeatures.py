@@ -35,7 +35,7 @@ class ConfigFeatures:
 
         self.set_transforms_features()
 
-        self.set_transforms_calls()
+        self.set_config_transforms()
 
         self.set_transforms()
 
@@ -97,19 +97,19 @@ class ConfigFeatures:
 
                 self.transforms_features[trfm] += [feature]
 
-    def set_transforms_calls(self):
+    def set_config_transforms(self):
         """Per transform, pre-configure: features, function args."""
 
-        self.transforms_calls = {}
+        self.config_transforms = {}
 
         for trfm, features in self.transforms_features.items():
             
-            self.transforms_calls[trfm] = {}
-            self.transforms_calls[trfm]['features'] = features
+            self.config_transforms[trfm] = {}
+            self.config_transforms[trfm]['features'] = features
 
-        for trfm in self.transforms_calls:
+        for trfm in self.config_transforms:
             
-            self.transforms_calls[trfm]['args'] = self.transformers[trfm]
+            self.config_transforms[trfm]['args'] = self.transformers[trfm]
 
             if trfm == "onehot_encode":
                 
@@ -121,9 +121,9 @@ class ConfigFeatures:
                         categories.append(categories_add) 
 
                 if categories:
-                    self.transforms_calls[trfm]['args']['categories'] = categories
+                    self.config_transforms[trfm]['args']['categories'] = categories
                 else:
-                    self.transforms_calls[trfm]['args']['categories'] = 'auto'
+                    self.config_transforms[trfm]['args']['categories'] = 'auto'
          
     def set_transforms(self):
         self.transforms = list(self.transforms_features.keys())
