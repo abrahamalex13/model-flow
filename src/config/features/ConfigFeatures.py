@@ -29,7 +29,7 @@ class ConfigFeatures:
 
         self.set_features_dtypes()
 
-        self.set_transforms_default_args()
+        self.set_transformers()
 
         self.set_features_transforms()
 
@@ -42,16 +42,14 @@ class ConfigFeatures:
             x: self._config["features"][x]["dtype"] for x in self.features
         }
 
-    def set_transforms_default_args(self):
-        """For easy reuse by the various features. Encapsulate validation."""
+    def set_transformers(self):
+        """Pre-configure for reuse among features. Encapsulate validation."""
 
-        self.transforms_default_args = {}
+        self.transformers = {}
 
-        for trfm, args0 in self._config["transforms_default_args"].items():
+        for trfm, args0 in self._config["transformers"].items():
 
-            self.transforms_default_args[trfm] = validate_transform_args(
-                {trfm: args0}
-            )
+            self.transformers[trfm] = validate_transformer_args({trfm: args0})
 
     def set_features_transforms(self):
         """
@@ -72,9 +70,9 @@ class ConfigFeatures:
             for trfm, args0 in transforms.items():
 
                 if is_args_dict_nonnull(args0):
-                    trfm_cln = validate_transform_args({trfm: args0})
+                    trfm_cln = validate_transformer_args({trfm: args0})
                 else:
-                    trfm_cln = self.transforms_default_args[trfm]
+                    trfm_cln = self.transformers[trfm]
 
                 self.features_transforms[feature][trfm] = trfm_cln
 
@@ -99,18 +97,18 @@ class ConfigFeatures:
         self.transforms = list(self.transforms_features.keys())
 
 
-def validate_transform_args(transform_args: dict):
+def validate_transformer_args(transformer_args: dict):
     """
     Because transforms are unknown until runtime, 
     transform's arguments validate during lower-level pass over input data.
     If all transform args omitted, then fall back on Schema defaults.
     """
 
-    trfm = list(transform_args.keys())[0]
+    trfm = list(transformer_args.keys())[0]
     schema = get_schema_transform(trfm)
 
-    if is_args_dict_nonnull(transform_args[trfm]):
-        return schema(**transform_args[trfm]).dict()
+    if is_args_dict_nonnull(transformer_args[trfm]):
+        return schema(**transformer_args[trfm]).dict()
     else:
         return schema().dict()
 
