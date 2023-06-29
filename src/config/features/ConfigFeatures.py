@@ -70,7 +70,7 @@ class ConfigFeatures:
 
             for trfm, args0 in transforms.items():
 
-                if is_args_dict_nonnull(args0):
+                if has_args_filled(args0):
                     trfm_cln = validate_transformer_args({trfm: args0})
                 else:
                     trfm_cln = self.transformers[trfm]
@@ -108,11 +108,11 @@ def validate_transformer_args(transformer_args: dict):
     trfm = list(transformer_args.keys())[0]
     schema = get_schema_transform(trfm)
 
-    if is_args_dict_nonnull(transformer_args[trfm]):
+    if has_args_filled(transformer_args[trfm]):
         return schema(**transformer_args[trfm]).dict()
     else:
         return schema().dict()
 
 
-def is_args_dict_nonnull(args_dict):
+def has_args_filled(args_dict):
     return type(args_dict) is dict and len(args_dict) > 0
