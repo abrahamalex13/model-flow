@@ -78,7 +78,7 @@ def test_transforms_calls(config_features):
             },
         'onehot_encode': {
             'features': ['team'],
-            'args': {'categories': ['BOS', 'PIT']}
+            'args': {'categories': [['BOS', 'PIT']]}
             },
         'target_encode_beta_binomial': {
             'features': ['team'],
