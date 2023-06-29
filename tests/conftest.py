@@ -1,9 +1,6 @@
 import pytest
 from src.config.data.ConfigData import ConfigData
 from src.config.features.ConfigFeatures import ConfigFeatures
-from src.config.features.TransformArgsAdapter import (
-    TransformArgsAdapter,
-)
 from src.config.ConfigFeatureTransformsPipeline import (
     ConfigFeatureTransformsPipeline,
 )
