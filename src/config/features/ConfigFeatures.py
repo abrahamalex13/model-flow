@@ -43,7 +43,7 @@ class ConfigFeatures:
         }
 
     def set_transformers(self):
-        """Pre-configure for reuse among features. Encapsulate validation."""
+        """Pre-configure for reuse among features."""
 
         self.transformers = {}
 
