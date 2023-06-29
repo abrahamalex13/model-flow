@@ -13,9 +13,9 @@ class PipelineImputeScrubEnrichBasis:
     Example: impute _before_ scrubbing values, and then enrich column basis.
     """
 
-    def __init__(self, transforms_args_adapters):
+    def __init__(self, config_transforms):
 
-        self.transforms_args_adapters = transforms_args_adapters
+        self.config_transforms = config_transforms
 
     def fit(self, X, y):
 
@@ -23,7 +23,7 @@ class PipelineImputeScrubEnrichBasis:
 
         self.pipeline_impute = ColumnTransformer(
             transformers=impute.compose_transforms_calls(
-                self.transforms_args_adapters
+                self.config_transforms
             ),
             remainder="passthrough",
             verbose_feature_names_out=False,
@@ -34,13 +34,11 @@ class PipelineImputeScrubEnrichBasis:
             X, columns=self.pipeline_impute.get_feature_names_out()
         )
 
-        self.pipeline_scrub = PipelineScrub(self.transforms_args_adapters)
+        self.pipeline_scrub = PipelineScrub(self.config_transforms)
         self.pipeline_scrub.fit(X)
         X = self.pipeline_scrub.transform(X)
 
-        self.pipeline_enrich_basis = PipelineEnrichBasis(
-            self.transforms_args_adapters
-        )
+        self.pipeline_enrich_basis = PipelineEnrichBasis(self.config_transforms)
         self.pipeline_enrich_basis.fit(X, y)
 
         return self
