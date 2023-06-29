@@ -15,9 +15,7 @@ class PipelineScrub:
 
         for trfm in TRANSFORMS_MENU:
             if trfm in config_transforms:
-                self.config_transforms[trfm]: config_transforms[
-                    trfm
-                ]
+                self.config_transforms[trfm]: config_transforms[trfm]
 
         self.transforms = list(self.config_transforms.keys())
 
