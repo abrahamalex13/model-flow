@@ -8,18 +8,18 @@ class PipelineScrub:
     Encapsulate operations which cleanse/scrub/overwrite initial data values.
     """
 
-    def __init__(self, transforms_args_adapters):
+    def __init__(self, config_transforms):
 
         TRANSFORMS_MENU = ["consolidate_rare_levels"]
-        self.transforms_args_adapters = {}
+        self.config_transforms = {}
 
         for trfm in TRANSFORMS_MENU:
-            if trfm in transforms_args_adapters:
-                self.transforms_args_adapters[trfm]: transforms_args_adapters[
+            if trfm in config_transforms:
+                self.config_transforms[trfm]: config_transforms[
                     trfm
                 ]
 
-        self.transforms = list(self.transforms_args_adapters.keys())
+        self.transforms = list(self.config_transforms.keys())
 
     def fit(self, X, y=None):
 
@@ -27,7 +27,7 @@ class PipelineScrub:
 
         if "consolidate_rare_levels" in self.transforms:
 
-            cfg_trfm = self.transforms_args_adapters["consolidate_rare_levels"]
+            cfg_trfm = self.config_transforms["consolidate_rare_levels"]
 
             self.consolidate_rare_levels_pipeline = (
                 ConsolidateRareLevelsTransformer(
