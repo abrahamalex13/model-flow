@@ -59,9 +59,10 @@ transformers:
 
 
 # Specify each feature's dtype and transform keywords. 
-# Ensure each transform keyword links to a `transforms_default_args` entry.
-# Typical specification: transform keyword with no additional arguments.
-# Exception is `onehot_encode`: likely to have `categories` values.
+# Ensure each transform keyword links to a `transformers` entry.
+  # For typical transform, expect no feature-specific keywords -- 
+  # `transformers` args should suffice.
+  # Exceptions include: `onehot_encode`, and `categories` values.
 features:
 
   years_old_at_draft:
