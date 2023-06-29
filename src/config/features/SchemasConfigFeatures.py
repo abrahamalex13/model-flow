@@ -21,5 +21,5 @@ class SchemaFeature(BaseModel):
 
 class SchemaConfigFeatures(BaseModel):
     title: str
-    transforms_default_args: Dict[str, dict]
+    transformers: Dict[str, dict]
     features: Dict[str, SchemaFeature]
