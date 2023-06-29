@@ -39,6 +39,7 @@ class ConfigFeatureTransformsPipeline:
         self.pipeline_title = self.config_features.title
         self.features = self.config_features.features
         self.transforms = self.config_features.transforms
+        self.transforms_calls = self.config_features.transforms_calls
 
         self._config_subdirs = self.ConfigSubdirs(self.path_config_subdirs)
         self.outputs = self._config_subdirs.outputs
