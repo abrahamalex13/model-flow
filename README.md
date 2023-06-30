@@ -1,6 +1,7 @@
 # ModelFlow
 
 Develop predictive models with one configurable workflow. 
+The workflow configuration should be understandable to _anyone_ interested.
 
 # Usage
 
