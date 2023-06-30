@@ -1,6 +1,6 @@
 title: complete_wide
 
-transforms_default_args:
+transformers:
 
   standard_scale:
 

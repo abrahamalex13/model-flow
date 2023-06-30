@@ -29,11 +29,14 @@ class ConfigFeatures:
 
         self.set_features_dtypes()
 
-        self.set_transforms_default_args()
+        self.set_transformers()
 
         self.set_features_transforms()
 
         self.set_transforms_features()
+
+        self.set_config_transforms()
+
         self.set_transforms()
 
     def set_features_dtypes(self):
@@ -42,21 +45,20 @@ class ConfigFeatures:
             x: self._config["features"][x]["dtype"] for x in self.features
         }
 
-    def set_transforms_default_args(self):
-        """For easy reuse by the various features. Encapsulate validation."""
+    def set_transformers(self):
+        """Pre-configure for reuse among features."""
 
-        self.transforms_default_args = {}
+        self.transformers = {}
 
-        for trfm, args0 in self._config["transforms_default_args"].items():
+        for trfm, args0 in self._config["transformers"].items():
 
-            self.transforms_default_args[trfm] = validate_transform_args(
-                {trfm: args0}
-            )
+            self.transformers[trfm] = validate_transformer_args({trfm: args0})
 
     def set_features_transforms(self):
         """
         Analyst-friendly declaration flow: feature, then its transforms.
-        Within that nesting structure, validate transform's args.
+        Within feature, validate each transform's args, because
+        some transformers need feature-wise args not already validated.
         If transform specifies _any_ args, no use of default.
         If transform specifies _no_ args, then inject default.
         """
@@ -71,49 +73,77 @@ class ConfigFeatures:
 
             for trfm, args0 in transforms.items():
 
-                if is_args_dict_nonnull(args0):
-                    trfm_cln = validate_transform_args({trfm: args0})
+                if has_args_filled(args0):
+                    trfm_cln = validate_transformer_args({trfm: args0})
                 else:
-                    trfm_cln = self.transforms_default_args[trfm]
+                    trfm_cln = self.transformers[trfm]
 
                 self.features_transforms[feature][trfm] = trfm_cln
 
     def set_transforms_features(self):
         """
-        Code-friendly flow: proceed by transform, revising each feature set.
+        Modeling workflow proceeds by transform (API), revising each feature set.
         Simply invert features_transforms structure. 
         """
 
         self.transforms_features = {}
 
-        for feature, transforms_feature in self.features_transforms.items():
+        for feature, transforms in self.features_transforms.items():
 
-            for trfm in transforms_feature:
+            for trfm in transforms:
 
                 if trfm not in self.transforms_features:
                     self.transforms_features[trfm] = []
 
                 self.transforms_features[trfm] += [feature]
 
+    def set_config_transforms(self):
+        """Per transform, pre-configure: features, function args."""
+
+        self.config_transforms = {}
+
+        for trfm, features in self.transforms_features.items():
+            
+            self.config_transforms[trfm] = {}
+            self.config_transforms[trfm]['features'] = features
+
+        for trfm in self.config_transforms:
+            
+            self.config_transforms[trfm]['args'] = self.transformers[trfm]
+
+            if trfm == "onehot_encode":
+                
+                categories = []
+                
+                for feature in self.transforms_features['onehot_encode']:
+                    
+                    if categories_add := self.features_transforms[feature]['onehot_encode'].get('categories'):
+                        categories.append(categories_add) 
+
+                if categories:
+                    self.config_transforms[trfm]['args']['categories'] = categories
+                else:
+                    self.config_transforms[trfm]['args']['categories'] = 'auto'
+         
     def set_transforms(self):
         self.transforms = list(self.transforms_features.keys())
 
 
-def validate_transform_args(transform_args: dict):
+def validate_transformer_args(transformer_args: dict):
     """
     Because transforms are unknown until runtime, 
     transform's arguments validate during lower-level pass over input data.
     If all transform args omitted, then fall back on Schema defaults.
     """
 
-    trfm = list(transform_args.keys())[0]
+    trfm = list(transformer_args.keys())[0]
     schema = get_schema_transform(trfm)
 
-    if is_args_dict_nonnull(transform_args[trfm]):
-        return schema(**transform_args[trfm]).dict()
+    if has_args_filled(transformer_args[trfm]):
+        return schema(**transformer_args[trfm]).dict()
     else:
         return schema().dict()
 
 
-def is_args_dict_nonnull(args_dict):
+def has_args_filled(args_dict):
     return type(args_dict) is dict and len(args_dict) > 0

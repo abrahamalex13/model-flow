@@ -10,7 +10,7 @@ class PipelineEnrichBasis:
     Encapsulate transforms which enrich data's representation for modeling.
     """
 
-    def __init__(self, transforms_args_adapters):
+    def __init__(self, config_transforms):
 
         TRANSFORMS_MENU = [
             "target_encode_beta_binomial",
@@ -18,17 +18,13 @@ class PipelineEnrichBasis:
             "onehot_encode",
             "standard_scale",
         ]
-        self.transforms_args_adapters = {}
+        self.config_transforms = {}
 
         for trfm in TRANSFORMS_MENU:
-            if trfm in transforms_args_adapters:
-                self.transforms_args_adapters[trfm] = transforms_args_adapters[
-                    trfm
-                ]
+            if trfm in config_transforms:
+                self.config_transforms[trfm] = config_transforms[trfm]
 
-        self.transformers = compose_transforms_calls(
-            self.transforms_args_adapters
-        )
+        self.transformers = compose_transforms_calls(self.config_transforms)
 
     def fit(self, X, y):
 
@@ -56,7 +52,7 @@ class PipelineEnrichBasis:
         return X
 
 
-def compose_transforms_calls(transforms_args_adapters):
+def compose_transforms_calls(config_transforms):
     """
     Where one element includes:
         - Transform name
@@ -70,9 +66,9 @@ def compose_transforms_calls(transforms_args_adapters):
 
     transformers = []
 
-    for transform in transforms_args_adapters.keys():
+    for transform in config_transforms.keys():
 
-        cfg_transform = transforms_args_adapters[transform]
+        cfg_transform = config_transforms[transform]
 
         spec = None
 
@@ -81,10 +77,10 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 TargetEncodeTransformer(
-                    features=cfg_transform.features,
-                    **cfg_transform.tune_parameters
+                    features=cfg_transform["features"],
+                    **cfg_transform["args"]
                 ),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         elif transform == "onehot_encode":
@@ -92,7 +88,7 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 preprocessing.OneHotEncoder(
-                    categories=cfg_transform.categories,
+                    categories=cfg_transform["categories"],
                     sparse=False,
                     handle_unknown="ignore",
                 ),
@@ -104,7 +100,7 @@ def compose_transforms_calls(transforms_args_adapters):
             spec = (
                 transform,
                 preprocessing.StandardScaler(),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         if spec is not None:

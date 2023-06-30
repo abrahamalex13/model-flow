@@ -26,10 +26,10 @@ def compose_transforms_calls(configs_transformers):
                 transform,
                 impute.SimpleImputer(
                     missing_values=np.nan,
-                    **cfg_transform.tune_parameters,
+                    **cfg_transform["args"],
                     copy=False
                 ),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         elif "impute_str" in transform:
@@ -40,10 +40,10 @@ def compose_transforms_calls(configs_transformers):
                 transform,
                 impute.SimpleImputer(
                     missing_values=None,
-                    **cfg_transform.tune_parameters,
+                    **cfg_transform["args"],
                     copy=False
                 ),
-                cfg_transform.features,
+                cfg_transform["features"],
             )
 
         if spec is not None:
