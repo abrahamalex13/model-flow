@@ -3,7 +3,13 @@
 Develop predictive models with one configurable workflow. 
 The workflow configuration should be understandable to _anyone_ interested.
 
-# Usage
+## Entrypoints
+
+Pass raw data through feature-transforms pipeline: `python -m src.features.main`
+
+With transformed data, estimate models, using modules in `src.models`
+
+## Configuration Files
 
 **_Configure_ the data sample.**
 Data are real, while models are intangible abstractions.
