@@ -1,11 +1,9 @@
 import pickle
 from pathlib import Path
-import pandas as pd
 
 from src.config.core import config
 
-from src.data import extractors
-from src.data.db import engine
+from src.data.extractors import ExtractorX, ExtractorY
 from src.data.integrate_XY import integrate_XY
 
 from src.features.PipelineImputeScrubEnrichBasis import (
@@ -13,35 +11,35 @@ from src.features.PipelineImputeScrubEnrichBasis import (
 )
 
 
-query_x = extractors.QueryX(config.config_data)
-X = pd.read_sql_query(query_x.query, engine)
+extractor_x = ExtractorX(config)
+X = extractor_x.extract()
 
-query_y = extractors.QueryY(config.config_data)
-Y = pd.read_sql_query(query_y.query, engine)
-Y = Y.rename(columns={config.outcome_definition["title"]: "y"})
+extractor_y = ExtractorY(config.config_data)
 
-XY = integrate_XY(X, Y, config.outcome_definition)
+if extractor_y.extract:
+    
+    Y = extractor_y.extract()
 
-X = XY[config.features]
-X_attributes = XY[config.dataset_attributes]
-y = XY["y"]
+    XY = integrate_XY(X, Y, config.outcome_definition)
+
+    X_attributes = XY[config.dataset_attributes]
+    X = XY[config.features]
+    y = XY["y"]
+    y.to_csv(config.outputs_path["y"].with_suffix(".csv"), index=False)
+
+else:
+    X_attributes = X[config.dataset_attributes]
+    X = X[config.features]
 
 if config.is_training_run:
-
     pipeline = PipelineImputeScrubEnrichBasis(config.config_transforms)
     pipeline.fit(X, y=y)
     with open(config.outputs_path["feature_transforms_pipeline"], "wb") as f:
         pickle.dump(pipeline, f)
-
 with open(config.outputs_path["feature_transforms_pipeline"], "rb") as f:
     pipeline = pickle.load(f)
-
 X = pipeline.transform(X)
 
 X.to_csv(config.outputs_path["X"].with_suffix(".csv"), index=False)
 X.to_pickle(config.outputs_path["X"].with_suffix(".pkl"))
-X_attributes.to_csv(
-    Path(str(config.outputs_path["X"]) + "_attributes.csv"), index=False
-)
-
-y.to_csv(config.outputs_path["y"].with_suffix(".csv"), index=False)
+X_attributes.to_csv(config.outputs_path["X_attributes"].with_suffix(".csv"), index=False)
