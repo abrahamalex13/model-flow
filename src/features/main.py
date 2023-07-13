@@ -1,5 +1,4 @@
 import pickle
-from pathlib import Path
 
 from src.config.core import config
 
