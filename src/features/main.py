@@ -8,9 +8,7 @@ from src.data import extractors
 from src.data.db import engine
 from src.data.integrate_XY import integrate_XY
 
-from src.features.PipelineImputeScrubEnrichBasis import (
-    PipelineImputeScrubEnrichBasis,
-)
+from features.StaggeredPipeline import StaggeredPipeline
 
 
 query_x = extractors.QueryX(config.config_data)
@@ -28,7 +26,7 @@ y = XY["y"]
 
 if config.is_training_run:
 
-    pipeline = PipelineImputeScrubEnrichBasis(config.config_transforms)
+    pipeline = StaggeredPipeline(config.config_transforms)
     pipeline.fit(X, y=y)
     with open(config.outputs_path["feature_transforms_pipeline"], "wb") as f:
         pickle.dump(pipeline, f)
