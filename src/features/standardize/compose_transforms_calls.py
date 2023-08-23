@@ -14,9 +14,7 @@ def compose_transforms_calls(config_transforms):
 
     transformers = []
 
-    for transform in config_transforms.keys():
-
-        cfg_transform = config_transforms[transform]
+    for transform, details in config_transforms.keys():
 
         spec = None
 
@@ -25,7 +23,7 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 preprocessing.StandardScaler(),
-                cfg_transform["features"],
+                details["features"],
             )
 
         if spec is not None:
