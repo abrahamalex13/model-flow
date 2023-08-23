@@ -25,14 +25,13 @@ class PipelineScrub:
 
         if "consolidate_rare_levels" in self.transforms:
 
-            cfg_trfm = self.config_transforms["consolidate_rare_levels"]
+            details = self.config_transforms["consolidate_rare_levels"]
 
-            self.consolidate_rare_levels_pipeline = (
-                ConsolidateRareLevelsTransformer(
-                    features=cfg_trfm["features"], **cfg_trfm["args"]
+            transformer = ConsolidateRareLevelsTransformer(
+                features=details["features"], **details["args"]
                 )
-            )
-            self.consolidate_rare_levels_pipeline.fit(X)
+            transformer.fit(X)
+            self.consolidate_rare_levels_pipeline = transformer
 
         return self
 
