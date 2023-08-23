@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import impute
 
 
-def compose_transforms_calls(configs_transformers):
+def compose_transforms_calls(config_transforms):
     """
     Per sklearn ColumnTransformer argument `transformers`--list of tuples--
     one formatted element includes:
@@ -14,13 +14,13 @@ def compose_transforms_calls(configs_transformers):
 
     transformers = []
 
-    for transform in configs_transformers.keys():
+    for transform in config_transforms.keys():
 
         spec = None
 
         if "impute_numeric" in transform:
 
-            cfg_transform = configs_transformers[transform]
+            cfg_transform = config_transforms[transform]
 
             spec = (
                 transform,
@@ -34,7 +34,7 @@ def compose_transforms_calls(configs_transformers):
 
         elif "impute_str" in transform:
 
-            cfg_transform = configs_transformers[transform]
+            cfg_transform = config_transforms[transform]
 
             spec = (
                 transform,
