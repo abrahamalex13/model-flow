@@ -14,36 +14,32 @@ def compose_transforms_calls(config_transforms):
 
     transformers = []
 
-    for transform in config_transforms.keys():
+    for transform, details in config_transforms.items():
 
         spec = None
 
         if "impute_numeric" in transform:
 
-            cfg_transform = config_transforms[transform]
-
             spec = (
                 transform,
                 impute.SimpleImputer(
                     missing_values=np.nan,
-                    **cfg_transform["args"],
+                    **details["args"],
                     copy=False
                 ),
-                cfg_transform["features"],
+                details["features"],
             )
 
         elif "impute_str" in transform:
-
-            cfg_transform = config_transforms[transform]
 
             spec = (
                 transform,
                 impute.SimpleImputer(
                     missing_values=None,
-                    **cfg_transform["args"],
+                    **details["args"],
                     copy=False
                 ),
-                cfg_transform["features"],
+                details["features"],
             )
 
         if spec is not None:
