@@ -40,6 +40,7 @@ class ConfigFeatureTransformsPipeline:
         self.features = self.config_features.features
         self.transforms = self.config_features.transforms
         self.config_transforms = self.config_features.config_transforms
+        self.features_dtypes = self.config_features.features_dtypes
 
         self._config_subdirs = self.ConfigSubdirs(self.path_config_subdirs)
         self.outputs = self._config_subdirs.outputs
@@ -116,6 +117,7 @@ class ConfigFeatureTransformsPipeline:
             Path(self.outputs_dir[o]).mkdir(parents=True, exist_ok=True)
 
     def join_outputs_paths(self):
+        """Filename may vary by train or not-train execution."""
 
         self.outputs_path = {}
 
@@ -124,23 +126,28 @@ class ConfigFeatureTransformsPipeline:
             / "feature_transforms_pipeline.pkl"
         )
 
-        for dataset in ["X", "y"]:
-
-            if self.is_training_run:
-                filename = dataset + "_train"
-            else:
-                filename = dataset
-
-            self.outputs_path[dataset] = (
-                self.outputs_dir["data_processed"] / filename
-            )
-
         self.outputs_path["X_train"] = (
             self.outputs_dir["data_processed"] / "X_train"
+        )
+        self.outputs_path["X_train_attributes"] = (
+            self.outputs_dir["data_processed"] / "X_train_attributes"
         )
         self.outputs_path["y_train"] = (
             self.outputs_dir["data_processed"] / "y_train"
         )
 
         self.outputs_path["X_test"] = self.outputs_dir["data_processed"] / "X"
+        self.outputs_path["X_test_attributes"] = (
+            self.outputs_dir["data_processed"] / "X_attributes"
+        )
         self.outputs_path["y_test"] = self.outputs_dir["data_processed"] / "y"
+
+        # short aliases for this run's elements
+        if self.is_training_run:
+            self.outputs_path["X"] = self.outputs_path["X_train"]
+            self.outputs_path["X_attributes"] = self.outputs_path["X_train_attributes"]
+            self.outputs_path['y'] = self.outputs_path["y_train"]
+        else:
+            self.outputs_path["X"] = self.outputs_path["X_test"]
+            self.outputs_path["X_attributes"] = self.outputs_path["X_test_attributes"]
+            self.outputs_path['y'] = self.outputs_path["y_test"]
