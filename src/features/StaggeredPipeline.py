@@ -35,9 +35,10 @@ class StaggeredPipeline:
         X = pd.DataFrame(X, columns=pipeline_impute.get_feature_names_out())
         self.pipeline_impute = pipeline_impute
 
-        self.pipeline_scrub = PipelineScrub(self.config_transforms)
-        self.pipeline_scrub.fit(X)
-        X = self.pipeline_scrub.transform(X)
+        pipeline_scrub = PipelineScrub(config_transforms)
+        pipeline_scrub.fit(X)
+        X = pipeline_scrub.transform(X)
+        self.pipeline_scrub = pipeline_scrub
 
         self.pipeline_enrich_basis = PipelineEnrichBasis(self.config_transforms)
         self.pipeline_enrich_basis.fit(X, y)
