@@ -23,19 +23,17 @@ class StaggeredPipeline:
     def fit(self, X, y):
 
         self.feature_names_in = X.columns
+        config_transforms = self.config_transforms
 
-        self.pipeline_impute = ColumnTransformer(
-            transformers=impute.compose_transforms_calls(
-                self.config_transforms
-            ),
+        pipeline_impute = ColumnTransformer(
+            transformers=impute.compose_transforms_calls(config_transforms),
             remainder="passthrough",
             verbose_feature_names_out=False,
         )
-        self.pipeline_impute.fit(X)
-        X = self.pipeline_impute.transform(X)
-        X = pd.DataFrame(
-            X, columns=self.pipeline_impute.get_feature_names_out()
-        )
+        pipeline_impute.fit(X)
+        X = pipeline_impute.transform(X)
+        X = pd.DataFrame(X, columns=pipeline_impute.get_feature_names_out())
+        self.pipeline_impute = pipeline_impute
 
         self.pipeline_scrub = PipelineScrub(self.config_transforms)
         self.pipeline_scrub.fit(X)
