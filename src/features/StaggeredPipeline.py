@@ -5,7 +5,7 @@ from .scrub.PipelineScrub import PipelineScrub
 from .enrich_basis.PipelineEnrichBasis import PipelineEnrichBasis
 
 
-class PipelineImputeScrubEnrichBasis:
+class StaggeredPipeline:
     """
     Encapsulate _sequentially dependent_ sklearn ColumnTransformer steps.
     For this purpose, a ColumnTransformer is insufficient: 
