@@ -1,8 +1,12 @@
 import pandas as pd
 from sklearn.compose import ColumnTransformer
+from sklearn import preprocessing
+
 from . import impute
 from .scrub.PipelineScrub import PipelineScrub
 from .enrich_basis.PipelineEnrichBasis import PipelineEnrichBasis
+from . import standardize
+
 
 
 class StaggeredPipeline:
@@ -40,8 +44,22 @@ class StaggeredPipeline:
 
         self.pipeline_enrich_basis = PipelineEnrichBasis(self.config_transforms)
         self.pipeline_enrich_basis.fit(X, y)
+        X = self.pipeline_enrich_basis.transform(X)
+        X = pd.DataFrame(
+            X, columns=self.pipeline_enrich_basis.get_feature_names_out()
+            )
+
+        self.pipeline_standardize = ColumnTransformer(
+            transformers=standardize.compose_transforms_calls(
+                self.config_transforms
+                ),
+            remainder="passthrough",
+            verbose_feature_names_out=False
+        )
+        self.pipeline_standardize.fit(X)
 
         return self
+
 
     def transform(self, X):
 
@@ -54,10 +72,17 @@ class StaggeredPipeline:
         X = pd.DataFrame(
             X, columns=self.pipeline_impute.get_feature_names_out()
         )
+
         X = self.pipeline_scrub.transform(X)
+
         X = self.pipeline_enrich_basis.transform(X)
         X = pd.DataFrame(
             X, columns=self.pipeline_enrich_basis.feature_names_out
+        )
+
+        X = self.pipeline_standardize.transform(X)
+        X = pd.DataFrame(
+            X, columns=self.pipeline_standardize.feature_names_out
         )
 
         return X

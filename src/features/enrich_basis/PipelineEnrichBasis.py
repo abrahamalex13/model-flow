@@ -16,7 +16,6 @@ class PipelineEnrichBasis:
             "target_encode_beta_binomial",
             "target_encode_normal",
             "onehot_encode",
-            "standard_scale",
         ]
         self.config_transforms = {}
 
@@ -93,14 +92,6 @@ def compose_transforms_calls(config_transforms):
                     handle_unknown="ignore",
                 ),
                 cfg_transform.features,
-            )
-
-        elif transform == "standard_scale":
-
-            spec = (
-                transform,
-                preprocessing.StandardScaler(),
-                cfg_transform["features"],
             )
 
         if spec is not None:
