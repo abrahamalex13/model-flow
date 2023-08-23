@@ -60,9 +60,7 @@ class StaggeredPipeline:
     def transform(self, X):
 
         if not all(self.feature_names_in == X.columns):
-            raise Exception(
-                "X for transform needs same column order as X into fit."
-            )
+            raise Exception("New X needs same column order as trained-on X.")
 
         X = self.pipeline_impute.transform(X)
         X = pd.DataFrame(
