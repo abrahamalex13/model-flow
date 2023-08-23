@@ -46,14 +46,13 @@ class StaggeredPipeline:
         X = pd.DataFrame(X, columns=pipeline_enrich_basis.feature_names_out)
         self.pipeline_enrich_basis = pipeline_enrich_basis
 
-        self.pipeline_standardize = ColumnTransformer(
-            transformers=standardize.compose_transforms_calls(
-                self.config_transforms
-                ),
+        pipeline_standardize = ColumnTransformer(
+            transformers=standardize.compose_transforms_calls(config_transforms),
             remainder="passthrough",
             verbose_feature_names_out=False
         )
-        self.pipeline_standardize.fit(X)
+        pipeline_standardize.fit(X)
+        self.pipeline_standardize = pipeline_standardize
 
         return self
 
