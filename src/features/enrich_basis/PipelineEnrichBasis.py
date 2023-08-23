@@ -65,9 +65,7 @@ def compose_transforms_calls(config_transforms):
 
     transformers = []
 
-    for transform in config_transforms.keys():
-
-        cfg_transform = config_transforms[transform]
+    for transform, details in config_transforms.keys():
 
         spec = None
 
@@ -76,10 +74,10 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 TargetEncodeTransformer(
-                    features=cfg_transform["features"],
-                    **cfg_transform["args"]
+                    features=details["features"],
+                    **details["args"]
                 ),
-                cfg_transform["features"],
+                details["features"],
             )
 
         elif transform == "onehot_encode":
@@ -87,11 +85,11 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 preprocessing.OneHotEncoder(
-                    categories=cfg_transform["categories"],
+                    categories=details["categories"],
                     sparse=False,
                     handle_unknown="ignore",
                 ),
-                cfg_transform.features,
+                details.features,
             )
 
         if spec is not None:
