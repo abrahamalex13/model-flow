@@ -81,7 +81,7 @@ class StaggeredPipeline:
 
         X = self.pipeline_standardize.transform(X)
         X = pd.DataFrame(
-            X, columns=self.pipeline_standardize.feature_names_out
+            X, columns=self.pipeline_standardize.get_feature_names_out()
         )
 
         return X
