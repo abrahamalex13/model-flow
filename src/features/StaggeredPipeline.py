@@ -40,12 +40,11 @@ class StaggeredPipeline:
         X = pipeline_scrub.transform(X)
         self.pipeline_scrub = pipeline_scrub
 
-        self.pipeline_enrich_basis = PipelineEnrichBasis(self.config_transforms)
-        self.pipeline_enrich_basis.fit(X, y)
-        X = self.pipeline_enrich_basis.transform(X)
-        X = pd.DataFrame(
-            X, columns=self.pipeline_enrich_basis.feature_names_out
-            )
+        pipeline_enrich_basis = PipelineEnrichBasis(config_transforms)
+        pipeline_enrich_basis.fit(X, y)
+        X = pipeline_enrich_basis.transform(X)
+        X = pd.DataFrame(X, columns=pipeline_enrich_basis.feature_names_out)
+        self.pipeline_enrich_basis = pipeline_enrich_basis
 
         self.pipeline_standardize = ColumnTransformer(
             transformers=standardize.compose_transforms_calls(
