@@ -45,7 +45,7 @@ class StaggeredPipeline:
         self.pipeline_enrich_basis.fit(X, y)
         X = self.pipeline_enrich_basis.transform(X)
         X = pd.DataFrame(
-            X, columns=self.pipeline_enrich_basis.get_feature_names_out()
+            X, columns=self.pipeline_enrich_basis.feature_names_out
             )
 
         self.pipeline_standardize = ColumnTransformer(
