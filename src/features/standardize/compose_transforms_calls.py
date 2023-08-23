@@ -14,7 +14,7 @@ def compose_transforms_calls(config_transforms):
 
     transformers = []
 
-    for transform, details in config_transforms.keys():
+    for transform, details in config_transforms.items():
 
         spec = None
 
