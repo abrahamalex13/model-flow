@@ -5,7 +5,7 @@ from src.config.core import config
 from src.data.extractors import ExtractorX, ExtractorY
 from src.data.integrate_XY import integrate_XY
 
-from features.StaggeredPipeline import StaggeredPipeline
+from src.features.StaggeredPipeline import StaggeredPipeline
 
 
 extractor_x = ExtractorX(config)
