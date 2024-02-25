@@ -27,7 +27,9 @@ There's significant opportunity for pipeline code reuse, project-to-project.
 There's significant opportunity to standardize and de-couple components:
 (a) transforms workflow from (b) project-specific configuration. 
 That de-coupled system should drag-and-drop to each project.
-Within one project, several models co-exist via standard config files.
+Within one project, several models co-exist via standard config files. 
+A config file should require short time-to-understanding for an interested reader,
+regardless of background. A config file should centralize all important model details.
 
 Data Science (DS) code tends more _ad hoc_ versus software engineers' work.
 Part of the explanation is product development 101: given uncertain direction,
