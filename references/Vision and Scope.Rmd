@@ -16,13 +16,15 @@ knitr::opts_chunk$set(echo = FALSE)
 ### Problem Definition
 
 For data practitioners and business managers,
-there's massive, avoidable waste when formulating predictive models.
+there's massive waste when formulating predictive models.
 
 - Coders and business managers waste time (dollars) 
-misaligned on, or tracking down, critical details. 
+misaligned on, or searching for, critical process details. 
   - "What data observations are we including/excluding?"
   - "Which model features are we including/excluding?"
   - "What transformation functions are treating the model features?" 
+  - "Could we try the analysis with ___ details changed? 
+  How does that result compare with other analyses we've tried?"
   - "In this ensemble, what models are included, and what are their details?"
   - "Where in the code is _____ implemented?"
 
@@ -47,47 +49,72 @@ Another partial explanation: practitioners may train in subject matter domains
 
 ### Objectives
 
-- 
+- Reduce time-until-baseline model (primarily construction time)
+- Reduce time-until-answer for stakeholders' questions about model details
+- Reduce errors in feature transform pipeline
+- Reduce costs of model maintenance and modification
+- Reduce model's time-until-production
 
 ### Metrics (Key Results)
 
-Measurements to gauge progress toward Objectives.
+Decrease:
+
+- work hours between requirements definition and baseline model results
+- work hours pursuing answers to stakeholder questions
+- issues count for feature transform pipeline
+- work hours inspecting and extending pipeline behavior
+- work hours productionizing R&D pipeline code
 
 ### Vision Statement
 
-What will customers' lives look like when this problem is solved?
+Model developers' productivity will surge, 
+as code construction time plummets and architecture cohesion rises. 
+Model developers will more easily maintain & extend a modeling _system_.
+
+Business managers' return on investment will multiply,
+as baseline predictive model costs plunge.
+Managers will also deliver more actionable feedback,
+as model details communicate more clearly.
 
 ### Risks
 
-Business value, usability, feasibility/implementation, ...
+Every predictive model conditions on quality input data.
+Without quality data, there's no expected return on predictive modeling.
 
 
 ## Scope and Limitations
 
-### Major Benefits to Customers
-
-Probably a list. Prefer to frame customer benefits versus "features",
-which may or may not deliver customer value.
-
 ### Limitations and Exclusions
 
-What _won't_ this product deliver, which customers may be thinking about?
+This problem focuses not on predictive modeling algorithms, 
+but on the pre-modeling data transform pipeline.  
 
 
 ## Business Context
 
 ### Stakeholder Profiles
 
-Who are these folks, and what do they care about? Their incentives?
+- Model developers
+  - Varying degrees of expertise in coding, data analysis
+  - Incentivized to quickly deliver accurate analysis
+  - Rewarded for increasing productivity
+  - Interested in problem-critical code details, and complexity management
+  - Uninterested in re-inventing the wheel project-to-project
+- Business managers
+  - Experts in business needs
+  - Incentivized to solve business needs with data
+  - Interested in problem-critical model details, and guiding project direction
 
 ### Project Priorities
 
-How will the project balance core dimensions: 
-schedule, features, quality, staff, cost?
-What are the baseline expectations, constraints, 
-and pockets of flexibility (degrees of freedom)?
+This product prioritizes quality above all else, 
+because it doesn't face schedule or cost pressures.
+This product will have low staff allowance, for the foreseeable future.
 
 ### Deployment Considerations
 
-How will users interact with this solution? 
-To satisfy that expectation, how must this product be deployed?
+In its early stage, this product's interface will be programmatic,
+for an end user with some coding experience. 
+
+Longer-term, a graphical user interface could democratize the workflow
+for non-coders.
