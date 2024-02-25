@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 For data practitioners and business managers,
 there's massive, avoidable waste when formulating predictive models.
 
-- Business managers and coders waste time (dollars) 
+- Coders and business managers waste time (dollars) 
 misaligned on, or tracking down, critical details. 
   - "What data observations are we including/excluding?"
   - "Which model features are we including/excluding?"
