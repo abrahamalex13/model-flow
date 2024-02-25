@@ -1,0 +1,91 @@
+---
+title: "Vision and Scope"
+author: "Alex Abraham"
+date: "2024"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Business Requirements
+
+### Problem Definition
+
+Even if analysts have reasonably clean data -- 
+it's expensive to reach a baseline predictive model. 
+"Reasonably clean" doesn't usually mean, model-ready.
+For model-ready data, a _feature transform pipeline_ needs 
+built and applied to initial data. 
+The pipeline build costs time and complexity (technical debt). 
+Too often, a similar cost is paid project-to-project. 
+
+There's significant opportunity for pipeline code reuse, project-to-project. 
+There's significant opportunity to standardize and de-couple components:
+(a) transforms workflow from (b) project-specific configuration. 
+That de-coupled system should drag-and-drop to each project.
+Within one project, several models co-exist via standard config files.
+
+Data Science (DS) code tends more _ad hoc_ versus software engineers' work.
+Part of the explanation is product development 101: given uncertain direction,
+the builder rapidly prototypes, wary of wasting effort on dead ends.
+Another partial explanation: practitioners may train in subject matter domains 
+(economics, biology, mathematics, physics), more than engineering principles.
+
+But in 2024, ad hoc workflows severely reduce DS' potential impact.
+Democratized cloud computing allows DS to _ascend the value chain_ -- 
+to actually deploy workflows (products), not just research and develop. 
+From experience, ad hoc workflows are painful to deploy and maintain. 
+Software engineering best practices deliver the antidote.
+Those best practices should target workflow segments common across DS analyses.
+
+
+### Objectives
+
+Big picture goals (qualitative statements)
+
+### Metrics (Key Results)
+
+Measurements to gauge progress toward Objectives.
+
+### Vision Statement
+
+What will customers' lives look like when this problem is solved?
+
+### Risks
+
+Business value, usability, feasibility/implementation, ...
+
+
+## Scope and Limitations
+
+### Major Benefits to Customers
+
+Probably a list. Prefer to frame customer benefits versus "features",
+which may or may not deliver customer value.
+
+### Limitations and Exclusions
+
+What _won't_ this product deliver, which customers may be thinking about?
+
+
+## Business Context
+
+### Stakeholder Profiles
+
+Who are these folks, and what do they care about? Their incentives?
+
+### Project Priorities
+
+How will the project balance core dimensions: 
+schedule, features, quality, staff, cost?
+What are the baseline expectations, constraints, 
+and pockets of flexibility (degrees of freedom)?
+
+### Deployment Considerations
+
+How will users interact with this solution? 
+To satisfy that expectation, how must this product be deployed?
