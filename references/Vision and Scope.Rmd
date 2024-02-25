@@ -37,10 +37,9 @@ In 2024, ad hoc Data Science (DS) workflows severely reduce potential impact.
 "What got you here won't get you there." 
 Democratized cloud computing allows DS to _ascend the value chain_: 
 to actually deploy workflows (products), not just research and develop. 
-Ad hoc workflows are painful to deploy and maintain. 
-Software engineering best practices deliver the antidote.
+Ad hoc workflows are expensive to deploy and maintain. 
 
-Historically, DS code has tended more _ad hoc_ than software engineers' work. 
+DS code has tended more _ad hoc_ than classic software engineering. 
 Part of the explanation is product development 101: given uncertain direction,
 builders rapidly prototype, wary of wasting effort on dead ends.
 Another partial explanation: practitioners may train in subject matter domains 
@@ -48,7 +47,7 @@ Another partial explanation: practitioners may train in subject matter domains
 
 ### Objectives
 
-Big picture goals (qualitative statements)
+- 
 
 ### Metrics (Key Results)
 
