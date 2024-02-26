@@ -1,9 +1,9 @@
 ---
-title: "Vision and Scope"
+title: "Vision and Scope: `model-flow`"
 author: "Alex Abraham"
 date: "2024"
 output: 
-  html_document:
+  pdf_document:
     toc: true
 ---
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ### Problem Definition
 
 For data practitioners and business managers,
-there's massive waste when formulating predictive models.
+there's predictable, significant waste when formulating predictive models.
 
 - Coders and business managers waste time (dollars) 
 misaligned on, or searching for, critical process details. 
@@ -28,8 +28,10 @@ misaligned on, or searching for, critical process details.
   - "In this ensemble, what models are included, and what are their details?"
   - "Where in the code is _____ implemented?"
 
-- Coders waste time (dollars) re-building _transform pipelines_
-project-to-project. Technical debt compounds with unnecessary idiosyncrasies. 
+- Coders waste time (dollars) re-building _transform pipelines_,
+  - project-to-project, or
+  - within-project, moving to production from R&D.
+  - Technical debt compounds with unnecessary idiosyncrasies. 
 
 There's significant opportunity for pipeline code reuse, project-to-project. 
 There's significant opportunity to standardize and de-couple components:
