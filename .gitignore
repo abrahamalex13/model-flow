@@ -191,3 +191,5 @@ models/*
 # code-generated documentation outputs
 *.html
 *.pdf
+
+.vscode/*
