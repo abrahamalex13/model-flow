@@ -1,6 +1,6 @@
-from src.utils import load_yaml
 from .SchemasConfigFeatures import SchemaConfigFeatures
 from .SchemasTransforms import get_schema_transform
+from strictyaml import load
 
 
 class ConfigFeatures:
@@ -18,7 +18,8 @@ class ConfigFeatures:
 
     def __init__(self, path):
 
-        self._config0 = load_yaml.load_yaml_to_pydict(path)
+        with open(path, "r") as yaml:
+            self._config0 = load(yaml.read()).data
 
         self._config = SchemaConfigFeatures(**self._config0).dict()
         # note, map values previously parsed as '' have now become {}

@@ -1,5 +1,5 @@
 from .SchemasConfigData import SchemaConfigData
-from src.utils import load_yaml
+from strictyaml import load
 
 
 class ConfigData:
@@ -7,7 +7,8 @@ class ConfigData:
 
     def __init__(self, path):
 
-        self._config0 = load_yaml.load_yaml_to_pydict(path)
+        with open(path, "r") as yaml:
+            self._config0 = load(yaml.read()).data
 
         self._config = SchemaConfigData(**self._config0).dict()
 

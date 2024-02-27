@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ### Problem Definition
 
 For data practitioners and business managers,
-there's predictable, significant waste when formulating predictive models.
+there's predictable and significant waste when formulating predictive models.
 
 - Coders and business managers waste time (dollars) 
 misaligned on, or searching for, critical process details. 
