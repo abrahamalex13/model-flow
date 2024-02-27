@@ -187,3 +187,7 @@ rsconnect/
 reports/figures/
 data/processed/*
 models/*
+
+# code-generated documentation outputs
+*.html
+*.pdf
