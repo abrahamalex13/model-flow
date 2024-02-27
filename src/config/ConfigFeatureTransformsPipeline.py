@@ -1,8 +1,8 @@
 from pathlib import Path
+from strictyaml import load
+
 from src.config.data.ConfigData import ConfigData
 from src.config.features.ConfigFeatures import ConfigFeatures
-
-from src.utils import load_yaml
 
 
 class ConfigFeatureTransformsPipeline:
@@ -65,7 +65,9 @@ class ConfigFeatureTransformsPipeline:
 
         def __init__(self, path):
 
-            self._config0 = load_yaml.load_yaml_to_pydict(path)
+            with open(path, "r") as yaml:
+                self._config0 = load(yaml.read()).data
+
             self.outputs = list(self._config0.keys())
 
     def map_outputs_subdirectory_levels(self):
