@@ -1,8 +1,8 @@
 from pathlib import Path
 from strictyaml import load
 
-from src.config.data.ConfigData import ConfigData
-from src.config.features.ConfigFeatures import ConfigFeatures
+from src.data.ConfigData import ConfigData
+from src.features.ConfigFeatures import ConfigFeatures
 
 
 class ConfigFeatureTransformsPipeline:
