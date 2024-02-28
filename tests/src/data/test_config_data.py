@@ -12,24 +12,24 @@ def test_config_data_source(config_data):
     assert config_data.source == expected
 
 
-def test_config_data_filters_train(config_data):
+def test_config_data_filter_train(config_data):
     expected = {
         "title": "draftees_2013_thru_2017_train",
-        "time_field": "year_season1",
-        "time_min": 2013,
-        "time_max": 2017,
+        "field": "year_season1",
+        "field_min": 2013,
+        "field_max": 2017,
     }
-    assert config_data.filters_train == expected
+    assert config_data.filter_train == expected
 
 
-def test_config_data_filters(config_data):
+def test_config_data_filter(config_data):
     expected = {
         "title": "draftees_2018",
-        "time_field": "year_season1",
-        "time_min": 2018,
-        "time_max": 2018,
+        "field": "year_season1",
+        "field_min": 2018,
+        "field_max": 2018,
     }
-    assert config_data.filters == expected
+    assert config_data.filter == expected
 
 
 def test_config_data_outcome_definition(config_data):

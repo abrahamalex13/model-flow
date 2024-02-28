@@ -14,8 +14,8 @@ With transformed data, estimate models, using modules in `src.models`
 **_Configure_ the data sample.**
 Data are real, while models are intangible abstractions.
 - From what (storage) source do we extract data?
-- What filters subset the training data?
-- What filters subset new test data?
+- What filter subsets the training data?
+- What filter subsets new test data?
 - What outcome do we seek to predict? 
 How should its missing values be interpreted?
 - What data columns constitute subject _attributes_ -- 

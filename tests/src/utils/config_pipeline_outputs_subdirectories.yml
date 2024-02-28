@@ -20,7 +20,7 @@ data_processed:
 
     config_data:
       - outcome_definition
-      - filters_train
+      - filter_train
     
     config_features:
       - title
@@ -30,7 +30,7 @@ pipeline_artifacts:
 
     config_data:
       - outcome_definition
-      - filters_train
+      - filter_train
     
     config_features:
       - title
