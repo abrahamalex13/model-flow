@@ -1,3 +1,5 @@
+# for interface's accepted values, see `SchemasConfigData.py`.
+
 is_training_run: true
 
 source:
