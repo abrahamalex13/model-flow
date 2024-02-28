@@ -10,14 +10,14 @@ source:
 filters:
   title: season3_2017
   field: year_season3
-  time_min: 2017
-  time_max: 2017
+  field_min: 2017
+  field_max: 2017
 
 filters_train:
   title: season3_2012_thru_2016_train
   field: year_season3
-  time_min: 2012
-  time_max: 2016
+  field_min: 2012
+  field_max: 2016
 
 outcome_definition: 
   title: war_per_g_lifetime_asof_season5

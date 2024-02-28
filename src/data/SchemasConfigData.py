@@ -13,8 +13,8 @@ class SchemaSource(BaseModel):
 class SchemaFilters(BaseModel):
     title: str
     field: str
-    time_min: int
-    time_max: int
+    field_min: int
+    field_max: int
 
 
 class SchemaOutcomeDefinition(BaseModel):
