@@ -20,7 +20,7 @@ class SchemaFilter(BaseModel):
 class SchemaOutcomeDefinition(BaseModel):
     title: str
     do_drop_na: bool
-    fillna_value: int
+    fillna_value: float
 
 
 class SchemaConfigData(BaseModel):
