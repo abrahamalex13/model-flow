@@ -1,6 +1,4 @@
-from src.config.ConfigFeatureTransformsPipeline import (
-    ConfigFeatureTransformsPipeline,
-)
+from .ConfigFeatureTransformsPipeline import ConfigFeatureTransformsPipeline
 
 config = ConfigFeatureTransformsPipeline(
     path_config_data="src/data/config.yml",
