@@ -19,7 +19,7 @@ def test_config_data_filter_train(config_data):
         "field_min": 2013,
         "field_max": 2017,
     }
-    assert config_data.filters_train == expected
+    assert config_data.filter_train == expected
 
 
 def test_config_data_filter(config_data):
@@ -29,7 +29,7 @@ def test_config_data_filter(config_data):
         "field_min": 2018,
         "field_max": 2018,
     }
-    assert config_data.filters == expected
+    assert config_data.filter == expected
 
 
 def test_config_data_outcome_definition(config_data):
