@@ -30,8 +30,8 @@ class ExtractorX:
             "SELECT * "
             f"FROM {config_data.source['X']} "
             "WHERE "
-            f"{config_data.filters['time_min']} <= {config_data.filters['time_field']} "
-            f"AND {config_data.filters['time_field']} <= {config_data.filters['time_max']} "
+            f"{config_data.filters['time_min']} <= {config_data.filters['field']} "
+            f"AND {config_data.filters['field']} <= {config_data.filters['time_max']} "
             "AND is_valid"
             )
 
