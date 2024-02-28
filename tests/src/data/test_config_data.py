@@ -39,3 +39,9 @@ def test_config_data_outcome_definition(config_data):
         "fillna_value": 0,
     }
     assert config_data.outcome_definition == expected
+
+
+def test_config_data_attributes(config_data):
+    expected = ['year', 'name', 'years_old']
+
+    assert config_data.dataset_attributes == expected

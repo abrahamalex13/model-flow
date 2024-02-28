@@ -26,6 +26,3 @@ dataset_attributes:
   - year
   - name
   - years_old
-  - overall_pick
-  - team_short
-  - sending_source
