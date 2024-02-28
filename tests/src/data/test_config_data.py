@@ -12,7 +12,7 @@ def test_config_data_source(config_data):
     assert config_data.source == expected
 
 
-def test_config_data_filters_train(config_data):
+def test_config_data_filter_train(config_data):
     expected = {
         "title": "draftees_2013_thru_2017_train",
         "field": "year_season1",
@@ -22,7 +22,7 @@ def test_config_data_filters_train(config_data):
     assert config_data.filters_train == expected
 
 
-def test_config_data_filters(config_data):
+def test_config_data_filter(config_data):
     expected = {
         "title": "draftees_2018",
         "field": "year_season1",

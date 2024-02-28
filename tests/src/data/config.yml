@@ -5,13 +5,13 @@ source:
   X: analysis.draftees
   Y: analysis.mlb_players_seasons_war #or, mlb_players_latest_season_war
 
-filters:
+filter:
   title: draftees_2018
   field: year_season1
   field_min: 2018
   field_max: 2018
 
-filters_train:
+filter_train:
   title: draftees_2013_thru_2017_train
   field: year_season1
   field_min: 2013
