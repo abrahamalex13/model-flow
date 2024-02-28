@@ -1,10 +1,11 @@
 """Subfield schema definitions must precede overall Config definition."""
 from pydantic import BaseModel
+from typing import Literal
 
 
 class SchemaSource(BaseModel):
 
-    storage_type: str
+    storage_type: Literal["database", "google_sheet"]
     X: str
     Y: str
 
