@@ -1,3 +1,6 @@
+# same config instance loaded by several disparate modules.
+# given that behavior, centralize the config instance in standalone module.
+
 from .ConfigFeatureTransformsPipeline import ConfigFeatureTransformsPipeline
 
 config = ConfigFeatureTransformsPipeline(
