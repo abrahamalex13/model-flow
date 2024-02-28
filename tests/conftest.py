@@ -1,9 +1,7 @@
 import pytest
 from src.data.ConfigData import ConfigData
 from src.features.ConfigFeatures import ConfigFeatures
-from src.config.ConfigFeatureTransformsPipeline import (
-    ConfigFeatureTransformsPipeline,
-)
+from src.ConfigFeatureTransformsPipeline import ConfigFeatureTransformsPipeline
 
 
 @pytest.fixture()
