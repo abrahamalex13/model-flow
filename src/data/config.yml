@@ -7,13 +7,13 @@ source:
   X: analysis.players_seasons_features_bat
   Y: analysis.players_outcomes_war_bat
 
-filters:
+filter:
   title: season3_2017
   field: year_season3
   field_min: 2017
   field_max: 2017
 
-filters_train:
+filter_train:
   title: season3_2012_thru_2016_train
   field: year_season3
   field_min: 2012

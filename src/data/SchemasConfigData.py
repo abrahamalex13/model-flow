@@ -10,7 +10,7 @@ class SchemaSource(BaseModel):
     Y: str
 
 
-class SchemaFilters(BaseModel):
+class SchemaFilter(BaseModel):
     title: str
     field: str
     field_min: int
@@ -27,7 +27,7 @@ class SchemaConfigData(BaseModel):
 
     is_training_run: bool
     source: SchemaSource
-    filters: SchemaFilters
-    filters_train: SchemaFilters
+    filter: SchemaFilter
+    filter_train: SchemaFilter
     outcome_definition: SchemaOutcomeDefinition
     dataset_attributes: list
