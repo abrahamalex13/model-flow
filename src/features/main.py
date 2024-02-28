@@ -17,8 +17,8 @@ if extractor_y.extract:
     
     Y = extractor_y.extract()
 
+    # integration with y may exclude observations, config-dependent
     XY = integrate_XY(X, Y, config.outcome_definition)
-
     X_attributes = XY[config.dataset_attributes]
     X = XY[config.features]
     y = XY["y"]
