@@ -15,7 +15,7 @@ def test_config_data_source(config_data):
 def test_config_data_filters_train(config_data):
     expected = {
         "title": "draftees_2013_thru_2017_train",
-        "time_field": "year_season1",
+        "field": "year_season1",
         "time_min": 2013,
         "time_max": 2017,
     }
@@ -25,7 +25,7 @@ def test_config_data_filters_train(config_data):
 def test_config_data_filters(config_data):
     expected = {
         "title": "draftees_2018",
-        "time_field": "year_season1",
+        "field": "year_season1",
         "time_min": 2018,
         "time_max": 2018,
     }
