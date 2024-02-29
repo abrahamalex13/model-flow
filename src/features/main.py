@@ -14,7 +14,6 @@ X = extractor_x.extract()
 if config.is_training_run or config.is_evaluation_run:
     
     extractor_y = ExtractorY(config.config_data)
-
     Y = extractor_y.extract()
 
     # integration with y may exclude observations, config-dependent
