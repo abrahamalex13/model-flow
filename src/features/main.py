@@ -11,10 +11,10 @@ from src.features.StaggeredPipeline import StaggeredPipeline
 extractor_x = ExtractorX(config)
 X = extractor_x.extract()
 
-extractor_y = ExtractorY(config.config_data)
-
-if extractor_y.extract:
+if config.is_training_run or config.is_evaluation_run:
     
+    extractor_y = ExtractorY(config.config_data)
+
     Y = extractor_y.extract()
 
     # integration with y may exclude observations, config-dependent

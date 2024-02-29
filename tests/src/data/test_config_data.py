@@ -1,6 +1,9 @@
 def test_is_training_run(config_data):
     assert not config_data.is_training_run
 
+def test_is_evaluation_run(config_data):
+    assert config_data.is_evaluation_run
+
 
 def test_data_source(config_data):
     expected = {

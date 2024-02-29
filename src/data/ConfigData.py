@@ -13,6 +13,9 @@ class ConfigData:
         self._config = SchemaConfigData(**self._config0).dict()
 
         self.is_training_run = self._config["is_training_run"]
+
+        self.is_evaluation_run = self._config["is_evaluation_run"]
+
         self.source = self._config["source"]
 
         self.filter = self._config["filter"]
