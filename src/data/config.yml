@@ -2,6 +2,8 @@
 
 is_training_run: true
 
+# model performance evaluation means, outcomes must load to memory.
+# need not train a model to evaluate its performance on known outcomes.
 is_evaluation_run: true
 
 source:
