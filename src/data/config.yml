@@ -7,11 +7,10 @@ source:
   X: analysis.players_seasons_features_bat
   Y: analysis.players_outcomes_war_bat
 
-filter:
-  title: season3_2017
-  field: year_season3
-  field_min: 2017
-  field_max: 2017
+outcome_definition: 
+  title: war_per_g_lifetime_asof_season5
+  do_drop_na: false
+  fillna_value: 0
 
 filter_train:
   title: season3_2012_thru_2016_train
@@ -19,10 +18,11 @@ filter_train:
   field_min: 2012
   field_max: 2016
 
-outcome_definition: 
-  title: war_per_g_lifetime_asof_season5
-  do_drop_na: false
-  fillna_value: 0
+filter:
+  title: season3_2017
+  field: year_season3
+  field_min: 2017
+  field_max: 2017
 
 dataset_attributes:
   - player_id
