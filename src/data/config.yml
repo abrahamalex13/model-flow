@@ -2,6 +2,8 @@
 
 is_training_run: true
 
+is_evaluation_run: true
+
 source:
   storage_type: database
   X: analysis.players_seasons_features_bat

@@ -26,6 +26,7 @@ class SchemaOutcomeDefinition(BaseModel):
 class SchemaConfigData(BaseModel):
 
     is_training_run: bool
+    is_evaluation_run: bool
     source: SchemaSource
     filter: SchemaFilter
     filter_train: SchemaFilter
