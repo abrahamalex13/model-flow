@@ -1,5 +1,7 @@
 is_training_run: false
 
+is_evaluation_run: true
+
 source:
   storage_type: database #or, file 
   X: analysis.draftees
