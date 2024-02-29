@@ -1,5 +1,4 @@
 import pickle
-
 from src.config import config
 from src.data.extractors import ExtractorX, ExtractorY
 from src.data.integrate_XY import integrate_XY
@@ -14,7 +13,6 @@ if config.is_training_run or config.is_evaluation_run:
     extractor_y = ExtractorY(config.config_data)
     Y = extractor_y.extract()
 
-    # integration with y may exclude observations, config-dependent
     XY = integrate_XY(X, Y, config.outcome_definition)
     X_attributes = XY[config.dataset_attributes]
     X = XY[config.features]
