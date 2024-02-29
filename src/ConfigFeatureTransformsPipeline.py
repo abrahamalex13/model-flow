@@ -28,6 +28,7 @@ class ConfigFeatureTransformsPipeline:
 
         self.config_data = ConfigData(self.path_config_data)
         self.is_training_run = self.config_data.is_training_run
+        self.is_evaluation_run = self.config_data.is_evaluation_run
         self.source = self.config_data.source
         self.filter = self.config_data.filter
         self.filter_train = self.config_data.filter_train
