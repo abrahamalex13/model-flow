@@ -5,11 +5,10 @@ source:
   X: analysis.draftees
   Y: analysis.mlb_players_seasons_war #or, mlb_players_latest_season_war
 
-filter:
-  title: draftees_2018
-  field: year_season1
-  field_min: 2018
-  field_max: 2018
+outcome_definition:
+  title: war_annualized_geq1_within_3_years_since_draft
+  do_drop_na: false
+  fillna_value: 0
 
 filter_train:
   title: draftees_2013_thru_2017_train
@@ -17,10 +16,11 @@ filter_train:
   field_min: 2013
   field_max: 2017
 
-outcome_definition:
-  title: war_annualized_geq1_within_3_years_since_draft
-  do_drop_na: false
-  fillna_value: 0
+filter:
+  title: draftees_2018
+  field: year_season1
+  field_min: 2018
+  field_max: 2018
 
 dataset_attributes:
   - year
