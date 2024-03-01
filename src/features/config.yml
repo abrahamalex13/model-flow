@@ -1,4 +1,5 @@
-# Descriptive name distinguishes one feature transform pipeline from another.
+# Unique tag for feature transforms configuration. 
+# Multiple configurations will exist (ensemble) in parallel
 title: narrow
 
 
