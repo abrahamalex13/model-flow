@@ -1,5 +1,5 @@
 # Unique tag for feature transforms configuration. 
-# Multiple configurations will exist (& ensemble) in parallel
+# Multiple configurations will exist (ensemble) in parallel
 title: narrow
 
 
