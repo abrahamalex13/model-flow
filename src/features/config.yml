@@ -5,8 +5,8 @@ title: narrow
 
 # Declare transformers upfront, in one text block.
 # See `SchemasTransforms.py` for alternatives, and default args. 
-# Ultimately, transformer invocations don't need hard-coded into workflow.
-# Later on, specify feature-wise invocation(s) via de-coupled metadata. 
+# Ultimately, transformer invocations don't need hard-coded into workflow:
+# in _metadata_ further down, invoke transformer by name (feature-wise).
 transformers:
 
   standard_scale:
