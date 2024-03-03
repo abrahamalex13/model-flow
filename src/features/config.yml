@@ -3,20 +3,9 @@
 title: narrow
 
 
-# Workflow objective: apply *pre-configured* function over arbitrary columns.
-# Preprocessing workflow doesn't generalize across analyses
-# when functions' args are declared 'on-the-fly'. 
-
-# Provide the menu of pre-configured transforms, with default arguments.
-# A transform's argument names come from underlying API.
-# Here we're only declaring what functions are available:
-# to invoke, call by name in later `features` section.
-
-# Suppose one kind of transform targets two different feature sets,
-# with two different argument sets (where args are not feature values) -- 
-# then create two transform entries.
-# Args are feature values for `onehot_encode`: don't need multiple transforms,
-# instead specify feature value args in later `features` section.
+# Create "transformers": functions which *transform* features. 
+# See SchemasTransforms.py for supported functionality and arguments.
+# Farther down -- per feature, declare which transformers apply. 
 transformers:
 
   standard_scale:
