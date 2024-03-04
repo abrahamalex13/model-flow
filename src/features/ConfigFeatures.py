@@ -24,7 +24,9 @@ class ConfigFeatures:
             x: self._config["features"][x]["dtype"] for x in self.features
         }
 
-        self.set_transformers()
+        self.transformers = {}
+        for trfm, args0 in self._config["transformers"].items():
+            self.transformers[trfm] = validate_transformer_args({trfm: args0})
 
         self.set_features_transforms()
 
@@ -34,15 +36,6 @@ class ConfigFeatures:
 
         self.set_transforms()
 
-
-    def set_transformers(self):
-        """Pre-configure for reuse among features."""
-
-        self.transformers = {}
-
-        for trfm, args0 in self._config["transformers"].items():
-
-            self.transformers[trfm] = validate_transformer_args({trfm: args0})
 
     def set_features_transforms(self):
         """
