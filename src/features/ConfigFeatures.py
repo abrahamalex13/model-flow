@@ -15,7 +15,6 @@ class ConfigFeatures:
             self._config0 = load(yaml.read()).data
 
         self._config = SchemaConfigFeatures(**self._config0).dict()
-        # note, map values previously parsed as '' have now become {}
 
         self.title = self._config["title"]
 
