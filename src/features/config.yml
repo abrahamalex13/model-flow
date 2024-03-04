@@ -48,12 +48,20 @@ transformers:
   onehot_encode:
 
 
-# Specify each feature's dtype and transform keywords. 
-# Ensure each transform keyword links to a `transformers` entry.
-  # For typical transform, expect no feature-specific keywords -- 
-  # `transformers` args should suffice.
-  # Exceptions include: `onehot_encode`, and `categories` values.
+# Feature-wise - specify transforms, as well as data type
 features:
+
+  # <feature_name>:
+    # dtype: <dtype>
+    # transforms:
+      # <transformer1>:
+        # <arg1>: <value1>
+        # <arg2>: <value2>
+        # ...
+      # <transformer2>:
+        # <arg1>: <value1>
+        # <arg2>: <value2>
+        # ...
 
   years_old_at_draft:
     dtype: numeric
