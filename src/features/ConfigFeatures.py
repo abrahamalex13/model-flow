@@ -25,9 +25,9 @@ class ConfigFeatures:
         }
 
         self.transformers = {}
-        for trfm, kwargs0 in self._config["transformers"].items():
-            schema_model = get_schema_transform(trfm)
-            self.transformers[trfm] = schema_model(**kwargs0).dict() 
+        for transform, kwargs0 in self._config["transformers"].items():
+            schema_model = get_schema_transform(transform)
+            self.transformers[transform] = schema_model(**kwargs0).dict() 
 
         self.set_features_transforms()
 
