@@ -55,6 +55,7 @@ features:
     # dtype: <dtype>
     # transforms:
       # <transformer1>:
+        # TODO: should system allow transformers' on-the-fly args, in feature-wise specs?
         # <arg1>: <value1>
         # <arg2>: <value2>
         # ...
