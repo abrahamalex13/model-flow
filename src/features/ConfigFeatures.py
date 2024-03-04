@@ -35,7 +35,7 @@ class ConfigFeatures:
 
         self.set_config_transforms()
 
-        self.set_transforms()
+        self.transforms = list(self.transforms_features.keys())
 
 
     def set_features_transforms(self):
@@ -108,9 +108,6 @@ class ConfigFeatures:
                     self.config_transforms[trfm]['args']['categories'] = categories
                 else:
                     self.config_transforms[trfm]['args']['categories'] = 'auto'
-         
-    def set_transforms(self):
-        self.transforms = list(self.transforms_features.keys())
 
 
 def validate_transformer_args(transformer_args: dict):
