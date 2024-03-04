@@ -20,7 +20,9 @@ class ConfigFeatures:
 
         self.features = list(self._config["features"].keys())
 
-        self.set_features_dtypes()
+        self.features_dtypes = {
+            x: self._config["features"][x]["dtype"] for x in self.features
+        }
 
         self.set_transformers()
 
@@ -32,11 +34,6 @@ class ConfigFeatures:
 
         self.set_transforms()
 
-    def set_features_dtypes(self):
-
-        self.features_dtypes = {
-            x: self._config["features"][x]["dtype"] for x in self.features
-        }
 
     def set_transformers(self):
         """Pre-configure for reuse among features."""
