@@ -6,14 +6,7 @@ from strictyaml import load
 class ConfigFeatures:
     """
     Extract, validate an analyst-friendly specification
-    of a feature transforms pipeline. The analyst describes:
-
-    - Pre-configured functions available for feature transforms
-        - Where possible, arguments already specified. 
-        Feature-wise args are the exception (example, one-hot encode levels).
-    - Each feature to be transformed
-        - Per feature, each transform: a pre-configured function (above).
-
+    of a feature transforms pipeline. Template in `features_config`.
     """
 
     def __init__(self, path):
