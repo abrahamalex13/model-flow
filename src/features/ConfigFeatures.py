@@ -41,6 +41,13 @@ class ConfigFeatures:
             schema_model = get_schema_transform(transform)
             self.transformers[transform] = schema_model(**kwargs0).dict() 
 
+        self.set_transforms_features()
+
+        self.set_config_transforms()
+
+
+    def set_transforms_features(self):
+
         self.transforms_features = {trfm: [] for trfm in self.transformers}
         for feature, transforms in self.features_transforms.items():
             for trfm in transforms.keys():
@@ -52,8 +59,11 @@ class ConfigFeatures:
             ]
         for trfm in transforms_not_invoked:
             del self.transforms_features[trfm]
-        
-        
+
+        return self
+    
+    def set_config_transforms(self):
+
         config_transforms = {}
         for trfm, features in self.transforms_features.items():
             
@@ -79,3 +89,5 @@ class ConfigFeatures:
         self.config_transforms = config_transforms
 
         self.transforms = list(self.config_transforms.keys())
+
+        return self
