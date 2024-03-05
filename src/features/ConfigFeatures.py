@@ -52,6 +52,7 @@ class ConfigFeatures:
         for feature, transforms in self.features_transforms.items():
             for trfm in transforms.keys():
                 self.transforms_features[trfm] += [feature]
+                
         # expect that only a transformers subset operates on features 
         transforms_not_invoked = [
             trfm for trfm, features in self.transforms_features.items() 
