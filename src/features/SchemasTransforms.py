@@ -1,4 +1,5 @@
 from pydantic import BaseModel, confloat
+from typing import Union, Literal
 
 
 class SchemaStandardScale(BaseModel):
@@ -51,7 +52,7 @@ class SchemaTargetEncodeNormal(BaseModel):
 
 
 class SchemaOnehotEncode(BaseModel):
-    categories: list = []
+    categories: Union[Literal["auto", "featurewise"], list]
 
 
 def get_schema_transform(transform):
@@ -62,10 +63,10 @@ def get_schema_transform(transform):
         return SchemaTargetEncodeBetaBinomial
     elif transform == "target_encode_normal":
         return SchemaTargetEncodeNormal
-    elif "impute_numeric" in transform:
-        return SchemaImputeNumeric
     elif transform == "impute_numeric_flag":
         return SchemaImputeNumericFlag
+    elif "impute_numeric" in transform:
+        return SchemaImputeNumeric
     elif transform == "impute_string":
         return SchemaImputeString
     elif transform == "onehot_encode":

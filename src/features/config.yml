@@ -46,14 +46,28 @@ transformers:
       variance_mu: 1e-4
 
   onehot_encode:
+    # categories either 'auto' or 'featurewise', in this transformers block.
+    # if applicable, don't list features' levels here; use features block
+    categories: 'auto'
 
 
-# Specify each feature's dtype and transform keywords. 
-# Ensure each transform keyword links to a `transformers` entry.
-  # For typical transform, expect no feature-specific keywords -- 
-  # `transformers` args should suffice.
-  # Exceptions include: `onehot_encode`, and `categories` values.
+# Feature-wise - specify transforms, as well as data type
 features:
+
+  # <feature_name>:
+    # dtype: <dtype>
+    # transforms:
+      # <transformer1>:
+        # if no feature-wise transformer arguments, stop here.
+        # feature-wise transformer arguments may arise for: one-hot encoding,
+        # min-max censoring, ...
+        # <arg1>: <value1>
+        # <arg2>: <value2>
+        # ...
+      # <transformer2>:
+        # <arg1>: <value1>
+        # <arg2>: <value2>
+        # ...
 
   years_old_at_draft:
     dtype: numeric

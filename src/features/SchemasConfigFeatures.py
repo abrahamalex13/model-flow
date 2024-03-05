@@ -1,21 +1,16 @@
-"""
-When a nested schema's low-level-of-abstraction elements
-possess different type across runs, 
-validate in steps, hierarchically. 
-This approach seems more readable versus complex looping.
-
-What higher-level elements have known type
-in a particular validation step?
-"""
-
 from pydantic import BaseModel
 from typing import Dict, Literal
 
 
 class SchemaFeature(BaseModel):
-    dtype: Literal["numeric", "categorical"]
-    # particular transforms unknown in advance
-    # descend hierarchically in next validation step
+    """
+    High-abstraction data model of `feature` configuration.
+    Interesting details lie in transforms, unknown until config file read. 
+    For now, confirm `transforms` structure: 
+    {transform1: {arg1: value1, ...}, transform2: {arg1: value1}, ...}.
+    Defer validation of each transform's args. 
+    """
+    dtype: Literal["numeric", "categorical"] 
     transforms: Dict[str, dict]
 
 

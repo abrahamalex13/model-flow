@@ -6,14 +6,7 @@ from strictyaml import load
 class ConfigFeatures:
     """
     Extract, validate an analyst-friendly specification
-    of a feature transforms pipeline. The analyst describes:
-
-    - Pre-configured functions available for feature transforms
-        - Where possible, arguments already specified. 
-        Feature-wise args are the exception (example, one-hot encode levels).
-    - Each feature to be transformed
-        - Per feature, each transform: a pre-configured function (above).
-
+    of a feature transforms pipeline. Template in `features_config`.
     """
 
     def __init__(self, path):
@@ -22,15 +15,19 @@ class ConfigFeatures:
             self._config0 = load(yaml.read()).data
 
         self._config = SchemaConfigFeatures(**self._config0).dict()
-        # note, map values previously parsed as '' have now become {}
 
         self.title = self._config["title"]
 
         self.features = list(self._config["features"].keys())
 
-        self.set_features_dtypes()
+        self.features_dtypes = {
+            x: self._config["features"][x]["dtype"] for x in self.features
+        }
 
-        self.set_transformers()
+        self.transformers = {}
+        for transform, kwargs0 in self._config["transformers"].items():
+            schema_model = get_schema_transform(transform)
+            self.transformers[transform] = schema_model(**kwargs0).dict() 
 
         self.set_features_transforms()
 
@@ -38,22 +35,8 @@ class ConfigFeatures:
 
         self.set_config_transforms()
 
-        self.set_transforms()
+        self.transforms = list(self.transforms_features.keys())
 
-    def set_features_dtypes(self):
-
-        self.features_dtypes = {
-            x: self._config["features"][x]["dtype"] for x in self.features
-        }
-
-    def set_transformers(self):
-        """Pre-configure for reuse among features."""
-
-        self.transformers = {}
-
-        for trfm, args0 in self._config["transformers"].items():
-
-            self.transformers[trfm] = validate_transformer_args({trfm: args0})
 
     def set_features_transforms(self):
         """
@@ -125,9 +108,6 @@ class ConfigFeatures:
                     self.config_transforms[trfm]['args']['categories'] = categories
                 else:
                     self.config_transforms[trfm]['args']['categories'] = 'auto'
-         
-    def set_transforms(self):
-        self.transforms = list(self.transforms_features.keys())
 
 
 def validate_transformer_args(transformer_args: dict):
