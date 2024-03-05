@@ -41,57 +41,17 @@ class ConfigFeatures:
             schema_model = get_schema_transform(transform)
             self.transformers[transform] = schema_model(**kwargs0).dict() 
 
-        self.set_features_transforms()
-
-        self.set_transforms_features()
-
-        self.set_config_transforms()
-
-        self.transforms = list(self.transforms_features.keys())
-
-
-    def set_features_transforms(self):
-        """
-        Analyst-friendly declaration flow: feature, then its transforms.
-        Within feature, validate each transform's args, because
-        some transformers need feature-wise args not already validated.
-        If transform specifies _any_ args, no use of default.
-        If transform specifies _no_ args, then inject default.
-        """
-
-        self.features_transforms = {
-            x: self._config["features"][x]["transforms"]
-            for x in self.features
-            if "transforms" in self._config["features"][x]
-        }
-
+        self.transforms_features = {trfm: [] for trfm in self.transformers}
         for feature, transforms in self.features_transforms.items():
-
-            for trfm, args0 in transforms.items():
-
-                if has_args_filled(args0):
-                    trfm_cln = validate_transformer_args({trfm: args0})
-                else:
-                    trfm_cln = self.transformers[trfm]
-
-                self.features_transforms[feature][trfm] = trfm_cln
-
-    def set_transforms_features(self):
-        """
-        Modeling workflow proceeds by transform (API), revising each feature set.
-        Simply invert features_transforms structure. 
-        """
-
-        self.transforms_features = {}
-
-        for feature, transforms in self.features_transforms.items():
-
-            for trfm in transforms:
-
-                if trfm not in self.transforms_features:
-                    self.transforms_features[trfm] = []
-
+            for trfm in transforms.keys():
                 self.transforms_features[trfm] += [feature]
+        # expect that only a transformers subset operates on features 
+        transforms_not_invoked = [
+            trfm for trfm, features in self.transforms_features.items() 
+            if features == [] 
+            ]
+        for trfm in transforms_not_invoked:
+            del self.transforms_features[trfm]
 
     def set_config_transforms(self):
         """Per transform, pre-configure: features, function args."""
