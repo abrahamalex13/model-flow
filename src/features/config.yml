@@ -58,6 +58,7 @@ features:
     # dtype: <dtype>
     # transforms:
       # <transformer1>:
+        # if no feature-wise transformer arguments, stop here.
         # feature-wise transformer arguments may arise for: one-hot encoding,
         # min-max censoring, ...
         # <arg1>: <value1>
