@@ -45,6 +45,8 @@ class ConfigFeatures:
 
         self.set_config_transforms()
 
+        self.transforms = list(self.config_transforms.keys())
+        
 
     def set_transforms_features(self):
 
@@ -52,7 +54,7 @@ class ConfigFeatures:
         for feature, transforms in self.features_transforms.items():
             for trfm in transforms.keys():
                 self.transforms_features[trfm] += [feature]
-                
+
         # expect that only a transformers subset operates on features 
         transforms_not_invoked = [
             trfm for trfm, features in self.transforms_features.items() 
@@ -88,7 +90,5 @@ class ConfigFeatures:
                 config_transforms["onehot_encode"]["args"]["categories"] += feature_levels
 
         self.config_transforms = config_transforms
-
-        self.transforms = list(self.config_transforms.keys())
 
         return self
