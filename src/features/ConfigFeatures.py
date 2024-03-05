@@ -52,51 +52,30 @@ class ConfigFeatures:
             ]
         for trfm in transforms_not_invoked:
             del self.transforms_features[trfm]
-
-    def set_config_transforms(self):
-        """Per transform, pre-configure: features, function args."""
-
-        self.config_transforms = {}
-
+        
+        
+        config_transforms = {}
         for trfm, features in self.transforms_features.items():
             
-            self.config_transforms[trfm] = {}
-            self.config_transforms[trfm]['features'] = features
+            config_transforms[trfm] = {}
+            config_transforms[trfm]["features"] = features
+            config_transforms[trfm]["args"] = self.transformers[trfm]
 
-        for trfm in self.config_transforms:
-            
-            self.config_transforms[trfm]['args'] = self.transformers[trfm]
+        # special case overwrites
+        has_onehot_featurewise = (
+            "onehot_encode" in config_transforms and 
+            self.transformers["onehot_encode"]["categories"] == "featurewise"
+            )
+        if has_onehot_featurewise:
 
-            if trfm == "onehot_encode":
-                
-                categories = []
-                
-                for feature in self.transforms_features['onehot_encode']:
-                    
-                    if categories_add := self.features_transforms[feature]['onehot_encode'].get('categories'):
-                        categories.append(categories_add) 
+            config_transforms["onehot_encode"]["args"]["categories"] = []
 
-                if categories:
-                    self.config_transforms[trfm]['args']['categories'] = categories
-                else:
-                    self.config_transforms[trfm]['args']['categories'] = 'auto'
+            for feature in self.transforms_features["onehot_encode"]:
 
+                feature_levels = self.features_transforms[feature]["onehot_encode"]["categories"]
 
-def validate_transformer_args(transformer_args: dict):
-    """
-    Because transforms are unknown until runtime, 
-    transform's arguments validate during lower-level pass over input data.
-    If all transform args omitted, then fall back on Schema defaults.
-    """
+                config_transforms["onehot_encode"]["args"]["categories"] += feature_levels
 
-    trfm = list(transformer_args.keys())[0]
-    schema = get_schema_transform(trfm)
+        self.config_transforms = config_transforms
 
-    if has_args_filled(transformer_args[trfm]):
-        return schema(**transformer_args[trfm]).dict()
-    else:
-        return schema().dict()
-
-
-def has_args_filled(args_dict):
-    return type(args_dict) is dict and len(args_dict) > 0
+        self.transforms = list(self.config_transforms.keys())
