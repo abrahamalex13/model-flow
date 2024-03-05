@@ -25,9 +25,16 @@ class ConfigFeatures:
 
         self.features = list(self._config["features"].keys())
 
+        # flattened structures are easier to work with later
         self.features_dtypes = {
             x: self._config["features"][x]["dtype"] for x in self.features
         }
+        self.features_transforms = {
+            x: self._config["features"][x]["transforms"] for x in self.features
+        }
+
+        # working toward transform-features-arguments bundle,
+        # it's easier to create-then-compose pieces.
 
         self.transformers = {}
         for transform, kwargs0 in self._config["transformers"].items():
