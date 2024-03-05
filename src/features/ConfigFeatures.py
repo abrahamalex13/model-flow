@@ -5,8 +5,13 @@ from strictyaml import load
 
 class ConfigFeatures:
     """
-    Extract, validate an analyst-friendly specification
-    of a feature transforms pipeline. Template in `features_config`.
+    Bundle arguments for pass to transformer API, where a bundle contains:
+    - transformer alias
+    - features
+    - transformer arguments
+
+    "Bundling" action involves transformation of an analyst-friendly 
+    configuration file (`features_config`).
     """
 
     def __init__(self, path):
