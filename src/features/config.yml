@@ -55,8 +55,8 @@ features:
     # dtype: <dtype>
     # transforms:
       # <transformer1>:
-        # TODO: should system allow transformers' on-the-fly args, in feature-wise specs?
-        # if no, should process simply a _list_ of transformer aliases
+        # feature-wise transformer arguments may arise for: one-hot encoding,
+        # min-max censoring, ...
         # <arg1>: <value1>
         # <arg2>: <value2>
         # ...
