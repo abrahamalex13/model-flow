@@ -46,6 +46,9 @@ transformers:
       variance_mu: 1e-4
 
   onehot_encode:
+    # categories either 'auto' or 'featurewise', in this transformers block.
+    # if applicable, don't list features' levels here; use features block
+    categories: 'auto'
 
 
 # Feature-wise - specify transforms, as well as data type

@@ -1,4 +1,5 @@
 from pydantic import BaseModel, confloat
+from typing import Union, Literal
 
 
 class SchemaStandardScale(BaseModel):
@@ -51,7 +52,7 @@ class SchemaTargetEncodeNormal(BaseModel):
 
 
 class SchemaOnehotEncode(BaseModel):
-    categories: list = []
+    categories: Union[Literal["auto", "featurewise"], list]
 
 
 def get_schema_transform(transform):
