@@ -58,9 +58,11 @@ features:
     # dtype: <dtype>
     # transforms:
       # <transformer1>:
-        # if no feature-wise transformer arguments, stop here.
-        # feature-wise transformer arguments may arise for: one-hot encoding,
-        # min-max censoring, ...
+        # end above line with colon in case of feature-wise args. 
+        # Prefer standard formatting over all transforms, versus variable colon-end. 
+        # If no feature-wise transformer arguments, stop here.
+        # feature-wise transformer arguments may arise for: 
+        # one-hot encoding, min-max censoring, ...
         # <arg1>: <value1>
         # <arg2>: <value2>
         # ...
