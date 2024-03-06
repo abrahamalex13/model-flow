@@ -11,7 +11,14 @@ class ConfigFeatures:
     - transformer arguments
 
     "Bundling" action involves transformation of an analyst-friendly 
-    configuration file (`features_config`).
+    configuration file (`features_config`). Primary steps:
+
+    - validate transform-argument pairs, from config's `transformers` section
+    - to above, integrate features-transforms inputs, from config's `features`
+        - Reshape to transform-features structure, considering strictly
+        transforms impacting some features set.
+        - Integrate (transform-features) with (transform-arguments),
+        overlaying featurewise arguments where applicable. 
     """
 
     def __init__(self, path):
