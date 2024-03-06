@@ -56,30 +56,27 @@ def test_transforms_features(config_features):
 def test_config_transforms(config_features):
 
     expected = {
-        'standard_scale': {
-            'features': ['overall_pick'], 
-            'args': {"with_mean": True, "with_std": True}
-            },
-        'consolidate_rare_levels': {
-            'features': ['team'],
-            'args': {"thresh_nobs": 10, "overwrite_with": "OTHER"}
-            },
-        'onehot_encode': {
-            'features': ['team'],
-            'args': {'categories': [['BOS', 'PIT']]}
-            },
-        'target_encode_beta_binomial': {
-            'features': ['team'],
-            'args': {
+        "standard_scale": {
+            "features": ["overall_pick"],
+            "args": {"with_mean": True, "with_std": True},
+        },
+        "consolidate_rare_levels": {
+            "features": ["team"],
+            "args": {"thresh_nobs": 10, "overwrite_with": "OTHER"},
+        },
+        "onehot_encode": {
+            "features": ["team"],
+            "args": {"categories": [["BOS", "PIT"]]},
+        },
+        "target_encode_beta_binomial": {
+            "features": ["team"],
+            "args": {
                 "n_cv_splits": 3,
-                "target_prior_distribution": {
-                    "alpha": 1,
-                    "beta": 24,
-                    "family": "beta"}
-                }
-            }
+                "target_prior_distribution": {"alpha": 1, "beta": 24, "family": "beta"},
+            },
+        },
     }
 
     given = config_features.config_transforms
-    
+
     assert given == expected
