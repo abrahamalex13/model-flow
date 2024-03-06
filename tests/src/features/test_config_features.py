@@ -12,23 +12,11 @@ def test_features_dtypes(config_features):
 
 def test_features_transforms(config_features):
     expected = {
-        "overall_pick": {
-            "standard_scale": {"with_mean": True, "with_std": True}
-        },
+        "overall_pick": {"standard_scale": {}},
         "team": {
-            "consolidate_rare_levels": {
-                "overwrite_with": "OTHER",
-                "thresh_nobs": 10,
-            },
+            "consolidate_rare_levels": {},
             "onehot_encode": {"categories": ["BOS", "PIT"]},
-            "target_encode_beta_binomial": {
-                "n_cv_splits": 3,
-                "target_prior_distribution": {
-                    "alpha": 1,
-                    "beta": 24,
-                    "family": "beta",
-                },
-            },
+            "target_encode_beta_binomial": {},
         },
     }
     given = config_features.features_transforms
