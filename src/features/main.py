@@ -9,7 +9,7 @@ extractor_x = ExtractorX(config)
 X = extractor_x.extract()
 
 if config.is_training_run or config.is_evaluation_run:
-    
+
     extractor_y = ExtractorY(config.config_data)
     Y = extractor_y.extract()
 
@@ -32,9 +32,11 @@ if config.is_training_run:
 
 with open(config.outputs_path["feature_transforms_pipeline"], "rb") as f:
     pipeline = pickle.load(f)
-    
+
 X = pipeline.transform(X)
 
 X.to_csv(config.outputs_path["X"].with_suffix(".csv"), index=False)
 X.to_pickle(config.outputs_path["X"].with_suffix(".pkl"))
-X_attributes.to_csv(config.outputs_path["X_attributes"].with_suffix(".csv"), index=False)
+X_attributes.to_csv(
+    config.outputs_path["X_attributes"].with_suffix(".csv"), index=False
+)
