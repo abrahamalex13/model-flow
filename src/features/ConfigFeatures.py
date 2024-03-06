@@ -93,7 +93,8 @@ class ConfigFeatures:
 
                 feature_levels = self.features_transforms[feature]["onehot_encode"]["categories"]
 
-                config_transforms["onehot_encode"]["args"]["categories"] += feature_levels
+                # list of lists is expected input from scikit-learn onehot encoder
+                config_transforms["onehot_encode"]["args"]["categories"].append(feature_levels)
 
         self.config_transforms = config_transforms
 
