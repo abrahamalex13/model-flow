@@ -57,6 +57,7 @@ class ConfigFeatures:
 
     def set_transforms_features(self):
 
+        # by construction, only `transformers` section aliases considered
         self.transforms_features = {trfm: [] for trfm in self.transformers}
         for feature, transforms in self.features_transforms.items():
             for trfm in transforms.keys():
