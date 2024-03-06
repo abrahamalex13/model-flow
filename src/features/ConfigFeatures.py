@@ -1,6 +1,7 @@
+from collections import defaultdict
+from strictyaml import load
 from .SchemasConfigFeatures import SchemaConfigFeatures
 from .SchemasTransforms import get_schema_transform
-from strictyaml import load
 
 
 class ConfigFeatures:
@@ -15,8 +16,8 @@ class ConfigFeatures:
 
     - validate transform-argument pairs, from config's `transformers` section
     - to above, integrate features-transforms inputs, from config's `features`
-        - Reshape to transform-features structure, considering strictly
-        transforms impacting some features set.
+        - Reshape to transform-features structure. Consider transforms
+        with alias in `transformers` config, that impact some feature(s).
         - Integrate (transform-features) with (transform-arguments),
         overlaying featurewise arguments where applicable. 
     """
@@ -57,19 +58,16 @@ class ConfigFeatures:
 
     def set_transforms_features(self):
 
-        # by construction, only `transformers` section aliases considered
-        self.transforms_features = {trfm: [] for trfm in self.transformers}
+        # defaultdict allows "just-in-time" addition of transform keys.
+        # need not specify all `transformer` aliases in advance,
+        # then prune transforms that don't appear among `features` 
+        self.transforms_features = defaultdict(lambda: [])
+        transforms_available = self.transformers.keys()
+        
         for feature, transforms in self.features_transforms.items():
-            for trfm in transforms.keys():
+            
+            for trfm in transforms.keys() & transforms_available:
                 self.transforms_features[trfm] += [feature]
-
-        # expect that only a transformers subset operates on features 
-        transforms_not_invoked = [
-            trfm for trfm, features in self.transforms_features.items() 
-            if features == [] 
-            ]
-        for trfm in transforms_not_invoked:
-            del self.transforms_features[trfm]
 
         return self
     
