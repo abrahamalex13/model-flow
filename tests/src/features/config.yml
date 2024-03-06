@@ -15,6 +15,7 @@ transformers:
       beta: 24
 
   onehot_encode:
+    categories: featurewise
 
 features:
 
