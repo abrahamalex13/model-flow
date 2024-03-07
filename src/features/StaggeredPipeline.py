@@ -7,11 +7,10 @@ from .enrich_basis.PipelineEnrichBasis import PipelineEnrichBasis
 from . import standardize
 
 
-
 class StaggeredPipeline:
     """
     Encapsulate _sequentially dependent_ sklearn ColumnTransformer steps.
-    For this purpose, a ColumnTransformer is insufficient: 
+    For this purpose, a ColumnTransformer is insufficient:
     that abstraction runs _parallel_  transformations.
     Example: impute _before_ scrubbing values, and then enrich column basis.
     """
@@ -24,6 +23,8 @@ class StaggeredPipeline:
 
         self.feature_names_in = X.columns
         config_transforms = self.config_transforms
+
+        # TODO: for speed, skip omitted sub-pipelines
 
         pipeline_impute = ColumnTransformer(
             transformers=impute.compose_transforms_calls(config_transforms),
@@ -49,13 +50,12 @@ class StaggeredPipeline:
         pipeline_standardize = ColumnTransformer(
             transformers=standardize.compose_transforms_calls(config_transforms),
             remainder="passthrough",
-            verbose_feature_names_out=False
+            verbose_feature_names_out=False,
         )
         pipeline_standardize.fit(X)
         self.pipeline_standardize = pipeline_standardize
 
         return self
-
 
     def transform(self, X):
 
@@ -63,20 +63,14 @@ class StaggeredPipeline:
             raise Exception("New X needs same column order as trained-on X.")
 
         X = self.pipeline_impute.transform(X)
-        X = pd.DataFrame(
-            X, columns=self.pipeline_impute.get_feature_names_out()
-        )
+        X = pd.DataFrame(X, columns=self.pipeline_impute.get_feature_names_out())
 
         X = self.pipeline_scrub.transform(X)
 
         X = self.pipeline_enrich_basis.transform(X)
-        X = pd.DataFrame(
-            X, columns=self.pipeline_enrich_basis.feature_names_out
-        )
+        X = pd.DataFrame(X, columns=self.pipeline_enrich_basis.feature_names_out)
 
         X = self.pipeline_standardize.transform(X)
-        X = pd.DataFrame(
-            X, columns=self.pipeline_standardize.get_feature_names_out()
-        )
+        X = pd.DataFrame(X, columns=self.pipeline_standardize.get_feature_names_out())
 
         return X
