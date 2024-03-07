@@ -15,7 +15,7 @@ class PipelineScrub:
 
         for trfm in TRANSFORMS_MENU:
             if trfm in config_transforms:
-                self.config_transforms[trfm]: config_transforms[trfm]
+                self.config_transforms[trfm] = config_transforms[trfm]
 
         self.transforms = list(self.config_transforms.keys())
 
@@ -29,7 +29,7 @@ class PipelineScrub:
 
             transformer = ConsolidateRareLevelsTransformer(
                 features=details["features"], **details["args"]
-                )
+            )
             transformer.fit(X)
             self.consolidate_rare_levels_pipeline = transformer
 
@@ -38,9 +38,7 @@ class PipelineScrub:
     def transform(self, X):
 
         if not all(self.feature_names_in == X.columns):
-            raise Exception(
-                "X for transform needs same column order as X into fit."
-            )
+            raise Exception("X for transform needs same column order as X into fit.")
 
         if "consolidate_rare_levels" in self.transforms:
             X = self.consolidate_rare_levels_pipeline.transform(X)
