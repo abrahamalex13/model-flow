@@ -5,21 +5,18 @@ from sklearn import metrics
 import math
 import joblib
 
-from src.config.core import config
+from src.config import config
 
-PATH_MODEL_ULTIMATE = (
-    config.outputs_dir["pipeline_artifacts"] / "random_forest.pkl"
-)
+PATH_MODEL_ULTIMATE = config.models_subdir / "random_forest.pkl"
 PATH_FEATURE_IMPORTANCE_MODEL_ULTIMATE = (
-    config.outputs_dir["pipeline_artifacts"]
-    / "feature_importance_random_forest.csv"
+    config.models_subdir / "feature_importance_random_forest.csv"
 )
 
-X = pd.read_pickle(config.outputs_path["X_train"].with_suffix(".pkl"))
-y = pd.read_csv(config.outputs_path["y_train"].with_suffix(".csv"))["y"]
+X = pd.read_pickle(config.X_train_path.with_suffix(".pkl"))
+y = pd.read_csv(config.y_train_path.with_suffix(".csv"))["y"]
 
-X_test = pd.read_pickle(config.outputs_path["X_test"].with_suffix(".pkl"))
-y_test = pd.read_csv(config.outputs_path["y_test"].with_suffix(".csv"))["y"]
+X_test = pd.read_pickle(config.X_evaluate_path.with_suffix(".pkl"))
+y_test = pd.read_csv(config.y_evaluate_path.with_suffix(".csv"))["y"]
 
 # inspired by R ranger default
 MTRY = math.floor(math.sqrt(X.shape[1]))
@@ -53,9 +50,7 @@ for i in range(tune_grid.shape[0]):
     # trial-specific score dict may store multiple metrics
     score = {}
 
-    score["error_summary"] = metrics.mean_squared_error(
-        y_test, y_pred, squared=False
-    )
+    score["error_summary"] = metrics.mean_squared_error(y_test, y_pred, squared=False)
 
     scores.append(score)
 
