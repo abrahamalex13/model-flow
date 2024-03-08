@@ -30,6 +30,7 @@ class ConfigFeatureTransformsPipeline:
         self.is_training_run = self.config_data.is_training_run
         self.is_evaluation_run = self.config_data.is_evaluation_run
         self.source = self.config_data.source
+        self.sources_X = self.config_data.sources_X
         self.filter = self.config_data.filter
         self.filter_train = self.config_data.filter_train
         self.outcome_title = self.config_data.outcome_definition["title"]
