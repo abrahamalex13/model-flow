@@ -18,6 +18,8 @@ class ConfigData:
 
         self.source = self._config["source"]
 
+        self.sources_X = self._config["sources_X"]
+
         self.filter = self._config["filter"]
         self.filter_train = self._config["filter_train"]
         if self.is_training_run:

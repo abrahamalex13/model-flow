@@ -1,6 +1,7 @@
 """Subfield schema definitions must precede overall Config definition."""
+
 from pydantic import BaseModel
-from typing import Literal
+from typing import Literal, Dict
 
 
 class SchemaSource(BaseModel):
@@ -8,6 +9,12 @@ class SchemaSource(BaseModel):
     storage_type: Literal["database", "google_sheet"]
     X: str
     Y: str
+
+
+class SchemaSourceX(BaseModel):
+
+    storage_type: Literal["database", "google_sheet"]
+    location: str
 
 
 class SchemaFilter(BaseModel):
@@ -28,6 +35,7 @@ class SchemaConfigData(BaseModel):
     is_training_run: bool
     is_evaluation_run: bool
     source: SchemaSource
+    sources_X: Dict[str, SchemaSourceX]
     filter: SchemaFilter
     filter_train: SchemaFilter
     outcome_definition: SchemaOutcomeDefinition
