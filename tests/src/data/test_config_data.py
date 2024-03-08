@@ -1,8 +1,18 @@
 def test_is_training_run(config_data):
     assert not config_data.is_training_run
 
+
 def test_is_evaluation_run(config_data):
     assert config_data.is_evaluation_run
+
+
+def test_sources_X(config_data):
+    expected = {
+        "ui": {"storage_type": "google_sheet", "location": "ui"},
+        "batch_war": {"storage_type": "database", "location": "batch_war"},
+    }
+
+    assert config_data.sources_X == expected
 
 
 def test_data_source(config_data):
@@ -45,6 +55,6 @@ def test_outcome_definition(config_data):
 
 
 def test_dataset_attributes(config_data):
-    expected = ['year', 'name', 'years_old']
+    expected = ["year", "name", "years_old"]
 
     assert config_data.dataset_attributes == expected
