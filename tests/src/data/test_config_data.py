@@ -15,6 +15,18 @@ def test_sources_X(config_data):
     assert config_data.sources_X == expected
 
 
+def test_source_Y(config_data):
+    expected = {
+        "storage_type": "database",
+        "location": "y",
+        "title": "war_per_g_lifetime_asof_season5",
+        "do_drop_na": False,
+        "fillna_value": 0,
+    }
+
+    assert config_data.source_Y == expected
+
+
 def test_data_source(config_data):
     expected = {
         "storage_type": "database",
