@@ -7,16 +7,16 @@ is_training_run: true
 is_evaluation_run: true
 
 sources_X:
-  ui:
-    storage_type: google_sheet
-    location: 
-  batch_war:
-    storage_type: 
-    location: 
+  # ui:
+  #   storage_type: google_sheet
+  #   location: hello
+  batch:
+    storage_type: database
+    location: analysis.players_seasons_features_bat
 
 source_Y:
-  storage_type: 
-  location: 
+  storage_type: database
+  location: analysis.players_outcomes_war_bat
   title: war_per_g_lifetime_asof_season5
   do_drop_na: false
   fillna_value: 0
