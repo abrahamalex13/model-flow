@@ -8,8 +8,12 @@ def test_is_evaluation_run(config_data):
 
 def test_sources_X(config_data):
     expected = {
-        "ui": {"storage_type": "google_sheet", "location": "ui"},
-        "batch_war": {"storage_type": "database", "location": "batch_war"},
+        "ui": {"storage_type": "google_sheet", "location": "ui", "do_filter": False},
+        "batch_war": {
+            "storage_type": "database",
+            "location": "batch_war",
+            "do_filter": True,
+        },
     }
 
     assert config_data.sources_X == expected

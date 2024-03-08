@@ -6,9 +6,11 @@ sources_X:
   ui:
     storage_type: google_sheet
     location: ui
+    do_filter: false
   batch_war:
     storage_type: database 
     location: batch_war
+    do_filter: true
 
 source_Y:
   storage_type: database
