@@ -7,6 +7,14 @@ source:
   X: analysis.draftees
   Y: analysis.mlb_players_seasons_war #or, mlb_players_latest_season_war
 
+sources_X:
+  ui:
+    storage_type: google_sheet
+    location: ui
+  batch_war:
+    storage_type: database 
+    location: batch_war
+
 outcome_definition:
   title: war_annualized_geq1_within_3_years_since_draft
   do_drop_na: false
