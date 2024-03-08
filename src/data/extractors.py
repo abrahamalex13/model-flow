@@ -2,19 +2,24 @@ import pandas as pd
 from src.data.db import engine
 from src.data.gcloud_client import gcloud_client
 
+
 class ExtractorX:
     """
     Data configuration always specifies extraction details.
     Features configuration conditionally specifies,
     when extracting live (not pre-validated) inputs.
     """
+
     def __init__(self, config):
+
+        # TODO:
+        # X_components = [extract(x) for x in sources_X]
+        # X = merge(X_components)
 
         self.config_data = config.config_data
         self.features_dtypes = config.features_dtypes
         self.features_numeric_types = [
-            x for x, dtype in self.features_dtypes.items()
-            if dtype in ['float']
+            x for x, dtype in self.features_dtypes.items() if dtype in ["float"]
         ]
 
         if self.config_data.source["storage_type"] == "database":
@@ -33,20 +38,19 @@ class ExtractorX:
             f"{config_data.filter['field_min']} <= {config_data.filter['field']} "
             f"AND {config_data.filter['field']} <= {config_data.filter['field_max']} "
             "AND is_valid"
-            )
+        )
 
         return pd.read_sql_query(self.query, engine)
-    
+
     def extract_google_sheet(self):
 
         X = gcloud_client.open(self.config_data.source["X"])
         X = X.worksheet("request_form")
         X = pd.DataFrame(X.get_all_records())
 
-        X[self.features_numeric_types] = (
-            X[self.features_numeric_types]
-            .apply(pd.to_numeric, errors='coerce')
-            ) 
+        X[self.features_numeric_types] = X[self.features_numeric_types].apply(
+            pd.to_numeric, errors="coerce"
+        )
         X = X.astype(self.features_dtypes)
 
         return X
