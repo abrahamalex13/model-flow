@@ -4,13 +4,6 @@ from pydantic import BaseModel
 from typing import Literal, Dict
 
 
-class SchemaSource(BaseModel):
-
-    storage_type: Literal["database", "google_sheet"]
-    X: str
-    Y: str
-
-
 class SchemaSourceX(BaseModel):
 
     storage_type: Literal["database", "google_sheet"]
@@ -37,7 +30,6 @@ class SchemaConfigData(BaseModel):
 
     is_training_run: bool
     is_evaluation_run: bool
-    source: SchemaSource
     sources_X: Dict[str, SchemaSourceX]
     source_Y: SchemaSourceY
     filter: SchemaFilter

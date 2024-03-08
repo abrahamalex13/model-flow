@@ -16,8 +16,6 @@ class ConfigData:
 
         self.is_evaluation_run = self._config["is_evaluation_run"]
 
-        self.source = self._config["source"]
-
         self.sources_X = self._config["sources_X"]
 
         self.source_Y = self._config["source_Y"]

@@ -6,11 +6,6 @@ is_training_run: true
 # need not train a model to evaluate its performance on known outcomes.
 is_evaluation_run: true
 
-source:
-  storage_type: database
-  X: analysis.players_seasons_features_bat
-  Y: analysis.players_outcomes_war_bat
-
 sources_X:
   ui:
     storage_type: google_sheet
