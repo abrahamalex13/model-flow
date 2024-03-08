@@ -8,6 +8,7 @@ class SchemaSourceX(BaseModel):
 
     storage_type: Literal["database", "google_sheet"]
     location: str
+    do_filter: bool
 
 
 class SchemaSourceY(BaseModel):

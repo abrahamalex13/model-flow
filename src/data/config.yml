@@ -10,9 +10,11 @@ sources_X:
   # ui:
   #   storage_type: google_sheet
   #   location: hello
+  #   do_filter: false
   batch:
     storage_type: database
     location: analysis.players_seasons_features_bat
+    do_filter: true
 
 source_Y:
   storage_type: database
