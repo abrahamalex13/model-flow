@@ -27,16 +27,6 @@ def test_source_Y(config_data):
     assert config_data.source_Y == expected
 
 
-def test_data_source(config_data):
-    expected = {
-        "storage_type": "database",
-        "X": "analysis.draftees",
-        "Y": "analysis.mlb_players_seasons_war",
-    }
-
-    assert config_data.source == expected
-
-
 def test_data_filter_train(config_data):
     expected = {
         "title": "draftees_2013_thru_2017_train",

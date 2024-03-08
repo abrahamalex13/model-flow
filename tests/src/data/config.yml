@@ -2,11 +2,6 @@ is_training_run: false
 
 is_evaluation_run: true
 
-source:
-  storage_type: database #or, file 
-  X: analysis.draftees
-  Y: analysis.mlb_players_seasons_war #or, mlb_players_latest_season_war
-
 sources_X:
   ui:
     storage_type: google_sheet
