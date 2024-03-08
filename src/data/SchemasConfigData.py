@@ -17,6 +17,15 @@ class SchemaSourceX(BaseModel):
     location: str
 
 
+class SchemaSourceY(BaseModel):
+
+    storage_type: Literal["database", "google_sheet"]
+    location: str
+    title: str
+    do_drop_na: bool
+    fillna_value: float
+
+
 class SchemaFilter(BaseModel):
     title: str
     field: str
@@ -36,6 +45,7 @@ class SchemaConfigData(BaseModel):
     is_evaluation_run: bool
     source: SchemaSource
     sources_X: Dict[str, SchemaSourceX]
+    source_Y: SchemaSourceY
     filter: SchemaFilter
     filter_train: SchemaFilter
     outcome_definition: SchemaOutcomeDefinition
