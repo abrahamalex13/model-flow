@@ -19,7 +19,7 @@ def test_source_Y(config_data):
     expected = {
         "storage_type": "database",
         "location": "y",
-        "title": "war_per_g_lifetime_asof_season5",
+        "title": "war_annualized_geq1_within_3_years_since_draft",
         "do_drop_na": False,
         "fillna_value": 0,
     }
@@ -55,15 +55,6 @@ def test_data_filter(config_data):
         "field_max": 2018,
     }
     assert config_data.filter == expected
-
-
-def test_outcome_definition(config_data):
-    expected = {
-        "title": "war_annualized_geq1_within_3_years_since_draft",
-        "do_drop_na": False,
-        "fillna_value": 0,
-    }
-    assert config_data.outcome_definition == expected
 
 
 def test_dataset_attributes(config_data):

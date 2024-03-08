@@ -18,11 +18,6 @@ sources_X:
 source_Y:
   storage_type: database
   location: y
-  title: war_per_g_lifetime_asof_season5
-  do_drop_na: false
-  fillna_value: 0
-
-outcome_definition:
   title: war_annualized_geq1_within_3_years_since_draft
   do_drop_na: false
   fillna_value: 0
