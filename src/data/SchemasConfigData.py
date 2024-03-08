@@ -33,12 +33,6 @@ class SchemaFilter(BaseModel):
     field_max: int
 
 
-class SchemaOutcomeDefinition(BaseModel):
-    title: str
-    do_drop_na: bool
-    fillna_value: float
-
-
 class SchemaConfigData(BaseModel):
 
     is_training_run: bool
@@ -48,5 +42,4 @@ class SchemaConfigData(BaseModel):
     source_Y: SchemaSourceY
     filter: SchemaFilter
     filter_train: SchemaFilter
-    outcome_definition: SchemaOutcomeDefinition
     dataset_attributes: list

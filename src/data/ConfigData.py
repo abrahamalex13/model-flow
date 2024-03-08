@@ -27,5 +27,4 @@ class ConfigData:
         if self.is_training_run:
             self.filter = self.filter_train
 
-        self.outcome_definition = self._config["outcome_definition"]
         self.dataset_attributes = self._config["dataset_attributes"]

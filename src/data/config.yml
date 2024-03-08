@@ -26,12 +26,6 @@ source_Y:
   do_drop_na: false
   fillna_value: 0
 
-
-outcome_definition: 
-  title: war_per_g_lifetime_asof_season5
-  do_drop_na: false
-  fillna_value: 0
-
 filter_train:
   title: season3_2012_thru_2016_train
   field: year_season3

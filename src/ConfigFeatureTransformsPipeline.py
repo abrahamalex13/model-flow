@@ -31,10 +31,9 @@ class ConfigFeatureTransformsPipeline:
         self.is_evaluation_run = self.config_data.is_evaluation_run
         self.source = self.config_data.source
         self.sources_X = self.config_data.sources_X
+        self.source_Y = self.config_data.source_Y
         self.filter = self.config_data.filter
         self.filter_train = self.config_data.filter_train
-        self.outcome_title = self.config_data.outcome_definition["title"]
-        self.outcome_definition = self.config_data.outcome_definition
         self.dataset_attributes = self.config_data.dataset_attributes
 
         self.config_features = ConfigFeatures(self.path_config_features)
@@ -48,7 +47,7 @@ class ConfigFeatureTransformsPipeline:
         # yaml config management alternative seems unnecessarily complex.
 
         subdir_levels = [
-            self.outcome_title,
+            self.source_Y["title"],
             self.filter_train["title"],
             self.pipeline_title,
         ]
