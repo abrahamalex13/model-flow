@@ -6,12 +6,19 @@ is_training_run: true
 # need not train a model to evaluate its performance on known outcomes.
 is_evaluation_run: true
 
-source:
-  storage_type: database
-  X: analysis.players_seasons_features_bat
-  Y: analysis.players_outcomes_war_bat
+sources_X:
+  ui:
+    storage_type: google_sheet
+    location: Python bulk upload - Singles w bbref_id
+    do_filter: false
+  batch:
+    storage_type: database
+    location: analysis.players_seasons_features_bat
+    do_filter: true
 
-outcome_definition: 
+source_Y:
+  storage_type: database
+  location: analysis.players_outcomes_war_bat
   title: war_per_g_lifetime_asof_season5
   do_drop_na: false
   fillna_value: 0

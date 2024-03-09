@@ -16,12 +16,13 @@ class ConfigData:
 
         self.is_evaluation_run = self._config["is_evaluation_run"]
 
-        self.source = self._config["source"]
+        self.sources_X = self._config["sources_X"]
+
+        self.source_Y = self._config["source_Y"]
 
         self.filter = self._config["filter"]
         self.filter_train = self._config["filter_train"]
         if self.is_training_run:
             self.filter = self.filter_train
 
-        self.outcome_definition = self._config["outcome_definition"]
         self.dataset_attributes = self._config["dataset_attributes"]

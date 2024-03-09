@@ -5,12 +5,13 @@ from typing import Dict, Literal
 class SchemaFeature(BaseModel):
     """
     High-abstraction data model of `feature` configuration.
-    Interesting details lie in transforms, unknown until config file read. 
-    For now, confirm `transforms` structure: 
+    Interesting details lie in transforms, unknown until config file read.
+    For now, confirm `transforms` structure:
     {transform1: {arg1: value1, ...}, transform2: {arg1: value1}, ...}.
-    Defer validation of each transform's args. 
+    Defer validation of each transform's args.
     """
-    dtype: Literal["numeric", "categorical"] 
+
+    dtype: Literal["float", "int", "string"]
     transforms: Dict[str, dict]
 
 

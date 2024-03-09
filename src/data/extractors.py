@@ -1,52 +1,67 @@
 import pandas as pd
+from functools import reduce
+
 from src.data.db import engine
 from src.data.gcloud_client import gcloud_client
 
+
 class ExtractorX:
     """
-    Data configuration always specifies extraction details.
-    Features configuration conditionally specifies,
-    when extracting live (not pre-validated) inputs.
+    Extract unified feature set X, possibly by integrating multiple datasets.
+    Ensure features' data types.
     """
+
     def __init__(self, config):
 
-        self.config_data = config.config_data
+        # each extractor will need configuration details
+        self.sources_X = config.sources_X
+        self.filter = config.filter
         self.features_dtypes = config.features_dtypes
         self.features_numeric_types = [
-            x for x, dtype in self.features_dtypes.items()
-            if dtype in ['float']
+            x for x, dtype in self.features_dtypes.items() if dtype in ["float"]
         ]
 
-        if self.config_data.source["storage_type"] == "database":
-            self.extract = self.extract_database
-        elif self.config_data.source["storage_type"] == "google_sheet":
-            self.extract = self.extract_google_sheet
+        for source, details in self.sources_X.items():
 
-    def extract_database(self):
+            if details["storage_type"] == "database":
+                self.sources_X[source]["extractor"] = self.extract_database
+            elif details["storage_type"] == "google_sheet":
+                self.sources_X[source]["extractor"] = self.extract_google_sheet
 
-        config_data = self.config_data
+    def extract_database(self, details_source):
 
-        self.query = (
-            "SELECT * "
-            f"FROM {config_data.source['X']} "
-            "WHERE "
-            f"{config_data.filter['field_min']} <= {config_data.filter['field']} "
-            f"AND {config_data.filter['field']} <= {config_data.filter['field_max']} "
-            "AND is_valid"
+        query = f"SELECT * FROM {details_source['location']} WHERE is_valid"
+
+        if details_source["do_filter"]:
+            query += (
+                f" AND {self.filter['field_min']} <= {self.filter['field']} "
+                f" AND {self.filter['field']} <= {self.filter['field_max']}"
             )
 
-        return pd.read_sql_query(self.query, engine)
-    
-    def extract_google_sheet(self):
+        return pd.read_sql_query(query, engine)
 
-        X = gcloud_client.open(self.config_data.source["X"])
+    def extract_google_sheet(self, details_source):
+
+        X = gcloud_client.open(details_source["location"])
         X = X.worksheet("request_form")
         X = pd.DataFrame(X.get_all_records())
 
-        X[self.features_numeric_types] = (
-            X[self.features_numeric_types]
-            .apply(pd.to_numeric, errors='coerce')
-            ) 
+        return X
+
+    def extract(self):
+        """Extract each dataset, then integrate into one."""
+
+        self.datasets_X = [
+            details["extractor"](details) for source, details in self.sources_X.items()
+        ]
+
+        X = reduce(lambda x, y: pd.merge(x, y, how="left"), self.datasets_X)
+
+        # defer typing until datasets' integration because,
+        # one feature could come from any of the sources
+        X[self.features_numeric_types] = X[self.features_numeric_types].apply(
+            pd.to_numeric, errors="coerce"
+        )
         X = X.astype(self.features_dtypes)
 
         return X
