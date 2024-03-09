@@ -72,107 +72,77 @@ features:
         # ...
 
   years_old_at_draft:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   overall_pick_at_draft:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   sending_source_at_draft:
-    dtype: categorical
+    dtype: string
     transforms:
       impute_string:
       consolidate_rare_levels:
       target_encode_normal:
 
   team_short_at_draft:
-    dtype: categorical
+    dtype: string
     transforms:
       impute_string:
       consolidate_rare_levels:
       target_encode_normal:
 
   n_prospect_rankings_total:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   prospect_ranking_last:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   prospect_ranking_delta:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   age_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   g_fraction_full_season_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   team1_season1:
-    dtype: categorical
+    dtype: string
     transforms:
       impute_string:
       consolidate_rare_levels:
       target_encode_normal:
 
   war_per_g_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   team_latest_rank_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
 
   team_latest_wins_rate_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
   
   team_latest_wins_rate_movv3_excl_season1:
-    dtype: numeric
+    dtype: float
     transforms:
       impute_numeric:
-
-  age_season2:
-    dtype: numeric
-    transforms:
-      impute_numeric:
-
-  g_fraction_full_season_season2:
-    dtype: numeric
-    transforms:
-      impute_numeric_zero:
-
-  war_per_g_season2:
-    dtype: numeric
-    transforms:
-      impute_numeric_zero:
-
-  age_season3:
-    dtype: numeric
-    transforms:
-      impute_numeric:
-
-  g_fraction_full_season_season3:
-    dtype: numeric
-    transforms:
-      impute_numeric_zero:
-
-  war_per_g_season3:
-    dtype: numeric
-    transforms:
-      impute_numeric_zero:
