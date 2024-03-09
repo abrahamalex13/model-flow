@@ -9,9 +9,11 @@ class ExtractorX:
     """
     Extract unified feature set X, possibly by integrating multiple datasets.
     Ensure features' data types.
+    If applicable, create "derived" features: those which yield from a
+    transform of source columns, not directly included in source.
     """
 
-    def __init__(self, config):
+    def __init__(self, config, func_derive_features=None):
 
         # each extractor will need configuration details
         self.sources_X = config.sources_X
@@ -20,6 +22,7 @@ class ExtractorX:
         self.features_numeric_types = [
             x for x, dtype in self.features_dtypes.items() if dtype in ["float"]
         ]
+        self.func_derive_features = func_derive_features
 
         for source, details in self.sources_X.items():
 
@@ -63,6 +66,9 @@ class ExtractorX:
             pd.to_numeric, errors="coerce"
         )
         X = X.astype(self.features_dtypes)
+
+        if self.func_derive_features:
+            X = self.func_derive_features(X)
 
         return X
 
