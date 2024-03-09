@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict, Literal
+from typing import Dict, Literal, Union
 
 
 class SchemaFeature(BaseModel):
@@ -12,7 +12,8 @@ class SchemaFeature(BaseModel):
     """
 
     dtype: Literal["float", "int", "string"]
-    transforms: Dict[str, dict]
+    # a transform's details may be key-value pairs, or blank
+    transforms: Dict[str, Union[dict, Literal[""]]]
 
 
 class SchemaConfigFeatures(BaseModel):
