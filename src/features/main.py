@@ -10,10 +10,10 @@ X = extractor_x.extract()
 
 if config.is_training_run or config.is_evaluation_run:
 
-    extractor_y = ExtractorY(config.config_data)
+    extractor_y = ExtractorY(config.source_Y)
     Y = extractor_y.extract()
 
-    XY = integrate_XY(X, Y, config.outcome_definition)
+    XY = integrate_XY(X, Y, config.source_Y)
     X_attributes = XY[config.dataset_attributes]
     X = XY[config.features]
     y = XY["y"]

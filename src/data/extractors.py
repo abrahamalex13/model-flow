@@ -74,9 +74,9 @@ class ExtractorX:
 
 
 class ExtractorY:
-    def __init__(self, config_data):
+    def __init__(self, source_Y):
 
-        self.source_Y = config_data.source_Y
+        self.source_Y = source_Y
 
         if self.source_Y["storage_type"] == "database":
             self.extract = self.extract_database
