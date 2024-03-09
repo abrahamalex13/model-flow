@@ -76,18 +76,17 @@ class ExtractorX:
 class ExtractorY:
     def __init__(self, config_data):
 
-        self.config_data = config_data
+        self.source_Y = config_data.source_Y
 
-        if self.config_data.source["storage_type"] == "database":
+        if self.source_Y["storage_type"] == "database":
             self.extract = self.extract_database
         else:
             self.extract = None
 
     def extract_database(self):
 
-        query = f"SELECT * FROM {self.config_data.source['Y']} "
-        Y = pd.read_sql_query(query, engine)
-        varname0 = self.config_data.outcome_definition["title"]
-        Y = Y.rename(columns={varname0: "y"})
+        Y = pd.read_sql_query(f"SELECT * FROM {self.source_Y['location']} ", engine)
+
+        Y = Y.rename(columns={self.source_Y["title"]: "y"})
 
         return Y
