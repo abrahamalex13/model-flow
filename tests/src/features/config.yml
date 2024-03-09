@@ -20,12 +20,12 @@ transformers:
 features:
 
   overall_pick:
-    dtype: numeric
+    dtype: float
     transforms:
       standard_scale:
 
   team:
-    dtype: categorical
+    dtype: string
 
     transforms:
       consolidate_rare_levels:

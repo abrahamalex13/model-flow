@@ -5,7 +5,7 @@ def test_features(config_features):
 
 
 def test_features_dtypes(config_features):
-    expected = {"overall_pick": "numeric", "team": "categorical"}
+    expected = {"overall_pick": "float", "team": "string"}
     given = config_features.features_dtypes
     assert given == expected
 
