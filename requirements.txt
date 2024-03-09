@@ -1,13 +1,16 @@
-glmnet==2.2.1
+# TODO: glmnet requires numpy's setup utility, which appears deprecated:
+    # https://github.com/civisanalytics/python-glmnet/blob/master/setup.py
+    # https://numpy.org/doc/stable/reference/distutils_status_migration.html
+# glmnet==2.2.1
 gspread==5.10.0
 numpy==1.25.0
-pandas==2.0.2
-pydantic==1.10.9
+pandas==2.2.1
+pydantic==2.6.3
 pytest==7.4.0
 python-dotenv==1.0.0
-scikit_learn==1.2.2
+scikit_learn==1.4.0
 skranger==0.8.0
 strictyaml==1.6.2
-xgboost==1.7.6
+xgboost==2.0.3
 git+https://github.com/abrahamalex13/DBAccess@v3.0.0
 git+https://github.com/abrahamalex13/target-encode@v1.0.0
