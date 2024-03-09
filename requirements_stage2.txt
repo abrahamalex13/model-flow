@@ -1,0 +1,8 @@
+# glmnet requires numpy's setup utility, which appears deprecated:
+    # https://github.com/civisanalytics/python-glmnet/blob/master/setup.py
+    # https://numpy.org/doc/stable/reference/distutils_status_migration.html
+# when included in same requirements.txt as numpy, 
+# numpy is not properly installing first.
+# adhoc solve: force install of numpy in separate requirements.txt,
+# then run this after 
+glmnet==2.2.1

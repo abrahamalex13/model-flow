@@ -9,6 +9,8 @@ title: narrow
 transformers:
 
   standard_scale:
+    with_mean: true
+    with_std: true
 
   impute_numeric:
     strategy: median
