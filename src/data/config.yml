@@ -7,10 +7,10 @@ is_training_run: true
 is_evaluation_run: true
 
 sources_X:
-  # ui:
-  #   storage_type: google_sheet
-  #   location: hello
-  #   do_filter: false
+  ui:
+    storage_type: google_sheet
+    location: Python bulk upload - Singles w bbref_id
+    do_filter: false
   batch:
     storage_type: database
     location: analysis.players_seasons_features_bat
