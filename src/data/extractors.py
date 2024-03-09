@@ -7,10 +7,8 @@ from src.data.gcloud_client import gcloud_client
 
 class ExtractorX:
     """
-    Extract datasets which compose unified feature set X.
-    Enforce data types if retrieving "online"-style features:
-    that's user input, so no assumption about dtypes.
-    If retrieving batch-style features (from database), expect proper dtypes.
+    Extract unified feature set X, possibly by integrating multiple datasets.
+    Ensure features' data types.
     """
 
     def __init__(self, config):
@@ -59,6 +57,8 @@ class ExtractorX:
 
         X = reduce(lambda x, y: pd.merge(x, y, how="left"), self.datasets_X)
 
+        # defer typing until datasets' integration because,
+        # one feature could come from any of the sources
         X[self.features_numeric_types] = X[self.features_numeric_types].apply(
             pd.to_numeric, errors="coerce"
         )
