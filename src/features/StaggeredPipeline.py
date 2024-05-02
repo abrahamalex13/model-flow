@@ -24,16 +24,18 @@ class StaggeredPipeline:
         self.feature_names_in = X.columns
         config_transforms = self.config_transforms
 
-        # TODO: for speed, skip omitted sub-pipelines
-
-        pipeline_impute = ColumnTransformer(
-            transformers=impute.specify_transformers(config_transforms),
-            remainder="passthrough",
-            verbose_feature_names_out=False,
-        )
-        pipeline_impute.fit(X)
-        X = pipeline_impute.transform(X)
-        X = pd.DataFrame(X, columns=pipeline_impute.get_feature_names_out())
+        impute_transformers = impute.specify_transformers(config_transforms)
+        if impute_transformers:
+            pipeline_impute = ColumnTransformer(
+                transformers=impute_transformers,
+                remainder="passthrough",
+                verbose_feature_names_out=False,
+            )
+            pipeline_impute.fit(X)
+            X = pipeline_impute.transform(X)
+            X = pd.DataFrame(X, columns=pipeline_impute.get_feature_names_out())
+        else:
+            pipeline_impute = None
         self.pipeline_impute = pipeline_impute
 
         pipeline_scrub = PipelineScrub(config_transforms)
