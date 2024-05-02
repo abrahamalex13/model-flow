@@ -42,6 +42,8 @@ class StaggeredPipeline:
         if pipeline_scrub.transforms:
             pipeline_scrub.fit(X)
             X = pipeline_scrub.transform(X)
+        else:
+            pipeline_scrub = None
         self.pipeline_scrub = pipeline_scrub
 
         pipeline_enrich_basis = PipelineEnrichBasis(config_transforms)
@@ -49,11 +51,11 @@ class StaggeredPipeline:
             pipeline_enrich_basis.fit(X, y)
             X = pipeline_enrich_basis.transform(X)
             X = pd.DataFrame(X, columns=pipeline_enrich_basis.feature_names_out)
+        else:
+            pipeline_enrich_basis = None
         self.pipeline_enrich_basis = pipeline_enrich_basis
 
-        standardize_transformers = standardize.compose_transforms_calls(
-            config_transforms
-        )
+        standardize_transformers = standardize.specify_transformers(config_transforms)
         if standardize_transformers:
             pipeline_standardize = ColumnTransformer(
                 transformers=standardize_transformers,
@@ -62,7 +64,7 @@ class StaggeredPipeline:
             )
             pipeline_standardize.fit(X)
         else:
-            standardize_transformers = None
+            pipeline_standardize = None
         self.pipeline_standardize = pipeline_standardize
 
         return self
@@ -72,15 +74,21 @@ class StaggeredPipeline:
         if not all(self.feature_names_in == X.columns):
             raise Exception("New X needs same column order as trained-on X.")
 
-        X = self.pipeline_impute.transform(X)
-        X = pd.DataFrame(X, columns=self.pipeline_impute.get_feature_names_out())
+        if self.pipeline_impute:
+            X = self.pipeline_impute.transform(X)
+            X = pd.DataFrame(X, columns=self.pipeline_impute.get_feature_names_out())
 
-        X = self.pipeline_scrub.transform(X)
+        if self.pipeline_scrub:
+            X = self.pipeline_scrub.transform(X)
 
-        X = self.pipeline_enrich_basis.transform(X)
-        X = pd.DataFrame(X, columns=self.pipeline_enrich_basis.feature_names_out)
+        if self.pipeline_enrich_basis:
+            X = self.pipeline_enrich_basis.transform(X)
+            X = pd.DataFrame(X, columns=self.pipeline_enrich_basis.feature_names_out)
 
-        X = self.pipeline_standardize.transform(X)
-        X = pd.DataFrame(X, columns=self.pipeline_standardize.get_feature_names_out())
+        if self.pipeline_standardize:
+            X = self.pipeline_standardize.transform(X)
+            X = pd.DataFrame(
+                X, columns=self.pipeline_standardize.get_feature_names_out()
+            )
 
         return X
