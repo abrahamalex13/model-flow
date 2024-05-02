@@ -12,11 +12,11 @@ def test_features_dtypes(config_features):
 
 def test_features_transforms(config_features):
     expected = {
-        "overall_pick": {"standard_scale": {}},
+        "overall_pick": {"standard_scale": ""},
         "team": {
-            "consolidate_rare_levels": {},
+            "consolidate_rare_levels": "",
             "onehot_encode": {"categories": ["BOS", "PIT"]},
-            "target_encode_beta_binomial": {},
+            "target_encode_beta_binomial": "",
         },
     }
     given = config_features.features_transforms

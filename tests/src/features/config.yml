@@ -3,6 +3,8 @@ title: complete_wide
 transformers:
 
   standard_scale:
+    with_mean: true
+    with_std: true
 
   consolidate_rare_levels:
     thresh_nobs: 10
