@@ -39,8 +39,9 @@ class StaggeredPipeline:
         self.pipeline_impute = pipeline_impute
 
         pipeline_scrub = PipelineScrub(config_transforms)
-        pipeline_scrub.fit(X)
-        X = pipeline_scrub.transform(X)
+        if pipeline_scrub.transforms:
+            pipeline_scrub.fit(X)
+            X = pipeline_scrub.transform(X)
         self.pipeline_scrub = pipeline_scrub
 
         pipeline_enrich_basis = PipelineEnrichBasis(config_transforms)
