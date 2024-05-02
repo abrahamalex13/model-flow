@@ -27,7 +27,7 @@ class StaggeredPipeline:
         # TODO: for speed, skip omitted sub-pipelines
 
         pipeline_impute = ColumnTransformer(
-            transformers=impute.compose_transforms_calls(config_transforms),
+            transformers=impute.specify_transformers(config_transforms),
             remainder="passthrough",
             verbose_feature_names_out=False,
         )

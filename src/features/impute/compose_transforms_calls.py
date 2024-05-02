@@ -3,13 +3,10 @@ import numpy as np
 from sklearn import impute
 
 
-def compose_transforms_calls(config_transforms):
+def specify_transformers(config_transforms):
     """
-    Per sklearn ColumnTransformer argument `transformers`--list of tuples--
-    one formatted element includes:
-    - Transform name
-    - Transformer/estimator call
-    - Targeted columns
+    A transformer specification includes (name, estimator, columns).
+    That data model comes from sklearn ColumnTransformer's arg, `transformers`.
     """
 
     transformers = []
@@ -23,9 +20,7 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 impute.SimpleImputer(
-                    missing_values=np.nan,
-                    **details["args"],
-                    copy=False
+                    missing_values=np.nan, **details["args"], copy=False
                 ),
                 details["features"],
             )
@@ -35,9 +30,7 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 impute.SimpleImputer(
-                    missing_values=None,
-                    **details["args"],
-                    copy=False
+                    missing_values=None, **details["args"], copy=False
                 ),
                 details["features"],
             )
