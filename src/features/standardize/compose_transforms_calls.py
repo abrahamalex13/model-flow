@@ -3,13 +3,10 @@ import numpy as np
 from sklearn import preprocessing
 
 
-def compose_transforms_calls(config_transforms):
+def specify_transformers(config_transforms):
     """
-    Per sklearn ColumnTransformer argument `transformers`--list of tuples--
-    one formatted element includes:
-    - Transform name
-    - Transformer/estimator call
-    - Targeted columns
+    A transformer specification includes (name, estimator, columns).
+    That data model comes from sklearn ColumnTransformer's arg, `transformers`.
     """
 
     transformers = []
