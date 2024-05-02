@@ -23,7 +23,7 @@ class PipelineEnrichBasis:
             if trfm in config_transforms:
                 self.config_transforms[trfm] = config_transforms[trfm]
 
-        self.transformers = compose_transforms_calls(self.config_transforms)
+        self.transformers = specify_transformers(self.config_transforms)
 
     def fit(self, X, y):
 
@@ -41,9 +41,7 @@ class PipelineEnrichBasis:
     def transform(self, X):
 
         if not all(self.feature_names_in == X.columns):
-            raise Exception(
-                "X for transform needs same column order as X into fit."
-            )
+            raise Exception("X for transform needs same column order as X into fit.")
 
         X = self.pipeline.transform(X)
         self.feature_names_out = self.pipeline.get_feature_names_out()
@@ -51,7 +49,7 @@ class PipelineEnrichBasis:
         return X
 
 
-def compose_transforms_calls(config_transforms):
+def specify_transformers(config_transforms):
     """
     Where one element includes:
         - Transform name
@@ -74,8 +72,7 @@ def compose_transforms_calls(config_transforms):
             spec = (
                 transform,
                 TargetEncodeTransformer(
-                    features=details["features"],
-                    **details["args"]
+                    features=details["features"], **details["args"]
                 ),
                 details["features"],
             )
