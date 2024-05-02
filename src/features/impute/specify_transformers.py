@@ -30,7 +30,7 @@ def specify_transformers(config_transforms):
             spec = (
                 transform,
                 impute.SimpleImputer(
-                    missing_values=None, **details["args"], copy=False
+                    missing_values=pd.NA, **details["args"], copy=False
                 ),
                 details["features"],
             )
