@@ -193,3 +193,6 @@ models/*
 *.pdf
 
 .vscode/*
+
+tests/data/processed/*
+tests/models/*
