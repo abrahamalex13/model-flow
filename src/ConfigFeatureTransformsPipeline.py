@@ -42,8 +42,17 @@ class ConfigFeatureTransformsPipeline:
         self.config_transforms = self.config_features.config_transforms
         self.features_dtypes = self.config_features.features_dtypes
 
-        # under same subdirectory structure project-to-project,
-        # yaml config management alternative seems unnecessarily complex.
+        self.create_artifact_paths()
+
+    # under same subdirectory structure project-to-project,
+    # yaml config management alternative seems unnecessarily complex.
+    def create_artifact_paths(
+        self, models_dir="./models", data_processed_dir="./data/processed"
+    ):
+        """
+        To switch between test and 'production' environments,
+        allow flexibility in models, data_processed directories.
+        """
 
         subdir_levels = [
             self.source_Y["title"],
@@ -51,13 +60,13 @@ class ConfigFeatureTransformsPipeline:
             self.pipeline_title,
         ]
 
-        models_subdir = Path("./models").joinpath(*subdir_levels)
+        models_subdir = Path(models_dir).joinpath(*subdir_levels)
         self.models_subdir = models_subdir
         self.feature_transforms_pipeline_path = (
             models_subdir / "feature_transforms_pipeline.pkl"
         )
 
-        data_processed_subdir = Path("./data/processed").joinpath(*subdir_levels)
+        data_processed_subdir = Path(data_processed_dir).joinpath(*subdir_levels)
         self.data_processed_subdir = data_processed_subdir
         # defer suffixes for flexibility: pkl, csv, parquet, ...
         self.X_train_path = data_processed_subdir / "X_train"
