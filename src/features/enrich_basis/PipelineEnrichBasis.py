@@ -82,11 +82,11 @@ def specify_transformers(config_transforms):
             spec = (
                 transform,
                 preprocessing.OneHotEncoder(
-                    categories=details["categories"],
-                    sparse=False,
+                    categories=details["args"]["categories"],
+                    sparse_output=False,
                     handle_unknown="ignore",
                 ),
-                details.features,
+                details["features"],
             )
 
         if spec is not None:
