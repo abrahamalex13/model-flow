@@ -1,8 +1,8 @@
 import pandas as pd
 from functools import reduce
 
-from src.data.db import engine
-from src.data.gcloud_client import gcloud_client
+from src.data.connectors.db import engine
+from src.data.connectors.gcloud_client import gcloud_client
 
 
 class ExtractorX:
