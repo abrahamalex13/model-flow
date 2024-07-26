@@ -33,11 +33,11 @@ class ExtractorX:
 
     def extract_database(self, details_source):
 
-        query = f"SELECT * FROM {details_source['location']} WHERE is_valid"
+        query = f"SELECT * FROM {details_source['location']}"
 
         if details_source["do_filter"]:
             query += (
-                f" AND {self.filter['field_min']} <= {self.filter['field']} "
+                f" WHERE {self.filter['field_min']} <= {self.filter['field']} "
                 f" AND {self.filter['field']} <= {self.filter['field_max']}"
             )
 
