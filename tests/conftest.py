@@ -25,7 +25,6 @@ def config_feature_transforms_pipeline():
     cfg = ConfigFeatureTransformsPipeline(
         path_config_data="./tests/src/data/config.yml",
         path_config_features="./tests/src/features/config.yml",
-        path_config_subdirs="./tests/src/utils/config_pipeline_outputs_subdirectories.yml",
     )
     return cfg
 
@@ -36,7 +35,6 @@ def X_transformed():
     config = ConfigFeatureTransformsPipeline(
         path_config_data="./tests/src/data/config.yml",
         path_config_features="./tests/src/features/config.yml",
-        path_config_subdirs="./tests/src/utils/config_pipeline_outputs_subdirectories.yml",
     )
     # posthoc patch of config, for easier testability
     config.create_artifact_paths(

@@ -19,12 +19,10 @@ class ConfigFeatureTransformsPipeline:
         self,
         path_config_data,
         path_config_features,
-        path_config_subdirs,
     ):
 
         self.path_config_data = path_config_data
         self.path_config_features = path_config_features
-        self.path_config_subdirs = path_config_subdirs
 
         self.config_data = ConfigData(self.path_config_data)
         self.is_training_run = self.config_data.is_training_run
